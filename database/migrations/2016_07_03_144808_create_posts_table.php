@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDeasTable extends Migration
+class CreatePostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,12 @@ class CreateDeasTable extends Migration
      */
     public function up()
     {
-        Schema::create('deas', function (Blueprint $table) {
+        Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->integer('dimension_id');
-            $table->integer('configuration_id');
-            $table->integer('material_id');
-            $table->float('prestretch');
-            $table->integer('layer');
+            $table->text('body');
+            $table->integer('user_id');
+            $table->enum('type',array('dea','deg','public','internal'));
         });
     }
 
@@ -30,6 +28,6 @@ class CreateDeasTable extends Migration
      */
     public function down()
     {
-        Schema::drop('deas');
+        Schema::drop('posts');
     }
 }

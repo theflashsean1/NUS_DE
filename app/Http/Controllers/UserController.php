@@ -10,6 +10,40 @@ use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
+    public function postSignUp(Request $request)
+    {
+        $credential = 'elastomerforever';
+        $this->validate($request, [
+            'email'=>'required|email|unique:users',
+            'first_name'=>'required|max:120',
+            'password'=>'required|min:4',
+        ]);
+        if($request['credential']!=$credential){
+            return redirect() -> back()->with(['message'=>'credential wrong']);
+        }
+
+
+        $email = $request['email'];
+        $first_name = $request['first_name'];
+        $password =bcrypt($request['password']);
+        $focus = $request['focus'];
+
+
+        $user = new User();
+        $user->email = $email;
+        $user->first_name = $first_name;
+        $user->password = $password;
+        $user->focus = $focus;
+
+        $user->save();
+
+
+        Auth::login($user);
+        return redirect() -> route('welcome')->with(['message'=>'Account Successfully created.']);
+    }
+
+
+
     public function  postSignIn(Request$request)
     {
         $this->validate($request,[
@@ -34,32 +68,6 @@ class UserController extends Controller
     }
 
 
-/*
-    public function postSignUp(Request $request)
-    {
-        $this->validate($request, [
-            'email'=>'required|email|unique:users',
-            'first_name'=>'required|max:120',
-            'password'=>'required|min:4'
-        ]);
-
-        $email = $request['email'];
-        $first_name = $request['first_name'];
-        $password =bcrypt($request['password']);
-
-
-        $user = new User();
-        $user->email = $email;
-        $user->first_name = $first_name;
-        $user->password = $password;
-
-        $user->save();
-
-
-
-       return redirect()->back();
-    }
-*/
 
     public function getAccount(){
         return view('account', ['user' => Auth::user()]);
@@ -78,7 +86,7 @@ class UserController extends Controller
         $filename = $request['first_name'].'-'. $user->id . '.jpg';
         print_r($file.$filename);
         if ($file){
-            print_r($file);  
+            print_r($file);
             Storage::disk('local')->put($filename, File::get($file));
             print_r('stored');
         }

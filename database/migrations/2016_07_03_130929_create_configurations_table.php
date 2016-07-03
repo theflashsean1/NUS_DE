@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateParametersTable extends Migration
+class CreateConfigurationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,16 +12,13 @@ class CreateParametersTable extends Migration
      */
     public function up()
     {
-        Schema::create('parameters', function (Blueprint $table) {
+        Schema::create('configurations', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
             $table->char('name');
-            //$table->float('value');
-
-            $table->char('unit');
             $table->text('description');
+            $table->timestamps();
+
         });
-        
     }
 
     /**
@@ -31,6 +28,6 @@ class CreateParametersTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('configurations');
     }
 }

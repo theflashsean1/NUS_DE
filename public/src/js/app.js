@@ -1,12 +1,15 @@
+$('#sign-up-button').click(function () {
+    $('#sign-up').modal();
+});
+
 $('.navbar li').click(function(e) {
     $('.navbar li.active').removeClass('active');
     var $this = $(this);
     if (!$this.hasClass('active')) {
         $this.addClass('active');
     }
-   // e.preventDefault();
+    // e.preventDefault();
 });
-
 
 
 $('.nav-tabs li').click(function(e) {
@@ -26,8 +29,8 @@ $('.nav-tabs li').click(function(e) {
         $('#view-de').show();
     }
     /*
-    * J query to only show the ones clicked for panel
-    * */
+     * J query to only show the ones clicked for panel
+     * */
     if (!$this.hasClass('active')) {
         $this.addClass('active');
     }
@@ -145,14 +148,14 @@ $(document).on('click','div.view-DEA  div.rr-left',function () {
 
 $('#DEA-delete').on('click', function () {
     $.ajax({
-       method: 'POST',
-       url: urlDeleteDEA,
-       data: {deaId: deaId, _token: token}
-   }
-   ).done(function (msg) {
-       $(panel).css('visibility','hidden');
-       $('#edit-DEA').modal('hide');
-   })
+            method: 'POST',
+            url: urlDeleteDEA,
+            data: {deaId: deaId, _token: token}
+        }
+    ).done(function (msg) {
+        $(panel).css('visibility','hidden');
+        $('#edit-DEA').modal('hide');
+    })
 });
 /*///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 /*
@@ -176,7 +179,7 @@ $('#add-equipment-modal-save').on('click',function () {
             data: {equipment_name: $('#equipment-name').val() ,equipment_description: $('#equipment-description').val(), _token: token}
         }
     ).done(function (msg) {
-       //MAKE UI BETTER
+        //MAKE UI BETTER
         console.log('finished');
         var newOption =  "<option value="+msg['new_equipment_id']+">"+msg['new_equipment_name']+"</option>";
         var allSelects = $('div.equipment-form select');
@@ -245,7 +248,7 @@ $('#select-dea div.modal-content .select-dea-table .row select').on('change', fu
         }
 
     }
-            //for loop, if '-1' or '' ignore that if statement check
+    //for loop, if '-1' or '' ignore that if statement check
 
 });
 
@@ -403,36 +406,36 @@ $('span .min').change(function () {
     }
 });
 /*
-var deaId = 0;
-var panel = "";
-$(document).on('click','div.view-DEA div.rr-right',function () {
-    panel = (event.target).closest('.rr-right');
-    var tempID = $(panel).find('h3')[0].innerHTML;
-    deaId = tempID.slice(3).trim();
-    console.log('ishere');
-    $('#edit-DEA').modal();
-});
+ var deaId = 0;
+ var panel = "";
+ $(document).on('click','div.view-DEA div.rr-right',function () {
+ panel = (event.target).closest('.rr-right');
+ var tempID = $(panel).find('h3')[0].innerHTML;
+ deaId = tempID.slice(3).trim();
+ console.log('ishere');
+ $('#edit-DEA').modal();
+ });
 
-$(document).on('click','div.view-DEA  div.rr-left',function () {
-    panel = (event.target).closest('.rr-left');
-    var tempID = $(panel).find('h3')[0].innerHTML;
-    deaId = tempID.slice(3).trim();
-    console.log('ishere');
-    $('#edit-DEA').modal();
-});
+ $(document).on('click','div.view-DEA  div.rr-left',function () {
+ panel = (event.target).closest('.rr-left');
+ var tempID = $(panel).find('h3')[0].innerHTML;
+ deaId = tempID.slice(3).trim();
+ console.log('ishere');
+ $('#edit-DEA').modal();
+ });
 
-$('#DEA-delete').on('click', function () {
-    $.ajax({
-            method: 'POST',
-            url: urlDeleteDEA,
-            data: {deaId: deaId, _token: token}
-        }
-    ).done(function (msg) {
-        $(panel).css('visibility','hidden');
-        $('#edit-DEA').modal('hide');
-    })
-});
-*/
+ $('#DEA-delete').on('click', function () {
+ $.ajax({
+ method: 'POST',
+ url: urlDeleteDEA,
+ data: {deaId: deaId, _token: token}
+ }
+ ).done(function (msg) {
+ $(panel).css('visibility','hidden');
+ $('#edit-DEA').modal('hide');
+ })
+ });
+ */
 
 var experimentId = 0;
 var experimentToRemove = "";
@@ -446,9 +449,9 @@ $(document).on('click','div.view-DEA-Experiment div.rr-right,div.view-DEA-Experi
 
 $('#Experiment-delete').on('click',function () {
     $.ajax({
-        method: 'POST',
-        url: delete_experiment_url,
-        data: {experiment_id: experimentId, _token: token}
+            method: 'POST',
+            url: delete_experiment_url,
+            data: {experiment_id: experimentId, _token: token}
         }
     ).done(function (msg) {
         $(experimentToRemove).hide();
@@ -531,6 +534,17 @@ $('#management-edit-1-delete, #management-edit-2-delete, #management-edit-3-dele
 });
 
 /*///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+var postId = 0;
+var postBodyElement = null;
+$('.post').find('.interaction').find('.edit').on('click',function () {
+    event.preventDefault();
+
+    postBodyElement = event.target.parentNode.parentNode.childNodes[1];
+    var postBody = postBodyElement.textContent;
+    postId = event.target.parentNode.parentNode.dataset['postid'];
+    $('#post-body').val(postBody);
+    $('#edit-modal').modal();
+})
 $('#modal-save').on('click',function () {
     $.ajax({
             method: 'POST',

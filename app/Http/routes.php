@@ -15,12 +15,12 @@ use Illuminate\Routing;
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
-/*
+
 Route::post('/signup',[
     'uses' => 'UserController@postSignUp',
     'as' => 'signup'
 ]);
-*/
+
 
 
 Route::post('/signin',[
@@ -89,7 +89,8 @@ Route::get('/delete-post/{post_id}',[
 
 Route::post('/edit', [
     'uses'=>'PostController@postEditPost',
-    'as'=>'edit'
+    'as'=>'edit',
+    'middleware'=>'auth'
 ]);
 
 /*
