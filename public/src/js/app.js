@@ -310,7 +310,7 @@ $('.parameters_filter_start_button').click(function () {
         }
         allParameterChecks.push(tempParas);
     }
-
+    console.log(tempParas);
     //console.log(allParameterChecks);
     $(event.target).text('Reset');
 });
@@ -319,7 +319,7 @@ $('span .max').change(function () {
     //$(event.target).val() is the query value entered.   value = parseFloat(temp.slice(temp.indexOf('=')+1,temp.indexOf('('))) is the parsed value of parameter for each exp
     var experiments = $('.parameters');
     for(var i=0; i<experiments.length; i++){
-        allParas = $(experiments[i]).find('.col-md-7, .col-md-4');
+        allParas = $(experiments[i]).find('li a');
         var pass = false;
         for (var j=0; j<allParas.length;j++){
             var temp = allParas[j].innerText;
@@ -352,9 +352,11 @@ $('span .max').change(function () {
 
 
         if (isShow){
+        //    console.log(experiments[i]);
             $(experiments[i]).show();
             $($(experiments[i]).parent().children()[0]).show();
         }else{
+         //   console.log('no way')
             $(experiments[i]).hide();
             $($(experiments[i]).parent().children()[0]).hide();
         }
@@ -365,7 +367,8 @@ $('span .max').change(function () {
 $('span .min').change(function () {
     var experiments = $('.parameters');
     for(var i=0; i<experiments.length; i++){
-        allParas = $(experiments[i]).find('.col-md-7, .col-md-4');
+        allParas = $(experiments[i]).find('li a');//.find('.parameters li a');
+        console.log(allParas);
         var pass = false;
         for (var j=0; j<allParas.length;j++){
             var temp = allParas[j].innerText;
@@ -391,7 +394,7 @@ $('span .min').change(function () {
 
         var isShow = true;
         for (var key in allParameterChecks[i]){
-            if(allParameterChecks[i][key]['min']==false||allParameterChecks[i][key]['max']){
+            if(allParameterChecks[i][key]['min']==false||allParameterChecks[i][key]['max']==false){
                 isShow = false;
             }
         }
@@ -400,6 +403,7 @@ $('span .min').change(function () {
             $(experiments[i]).show();
             $($(experiments[i]).parent().children()[0]).show();
         }else{
+
             $(experiments[i]).hide();
             $($(experiments[i]).parent().children()[0]).hide();
         }

@@ -170,7 +170,7 @@
 
                         <div class="row">
                             <div class="col-md-3">
-                                <h5>DEA</h5>
+                                <label>DEA</label>
                                 <ul>
 
                                     <li><a>@if(isset($experiments[$i]->dea->configuration)){{$experiments[$i]->dea->configuration->name}}@endif</a></li>
@@ -182,7 +182,7 @@
                             </div>
 
                             <div class="col-md-5 tools-for-experiment">
-                                <h5>Tool</h5>
+                                <label>Tool</label>
                                 <ul>
                                     @if(count($experiments[$i]->equipment)>0)
                                         <li><a>{{$experiments[$i]->equipment[0]->name}}</a></li>
@@ -203,7 +203,7 @@
                             </div>
 
                             <div class="col-md-4">
-                                <h5>Procedure</h5>
+                                <label>Procedure</label>
                                 <p class="procedure_text">{{$experiments[$i]->procedure}}</p>
                             </div>
                         </div>
@@ -214,42 +214,43 @@
                     <div>
                         <div class="row">
                             <div class="col-md-4 col-md-offset-4">
-                                <h4>Parameters</h4>
+                                <h3>Parameters</h3>
                             </div>
                         </div>
 
                         <ul>
-                                @if(count($experiments[$i]->parameters)>0)
+                                @if(isset($parameterNames[$i][0]))
                                     <li><a>{{$parameterNames[$i][0]}}={{$experiments[$i]->value1}}({{$parameterUnits[$i][0]}})</a></li>
                                 @endif
-                                @if(count($experiments[$i]->parameters)>1)
+                                @if(isset($parameterNames[$i][1]))
                                     <li><a>{{$parameterNames[$i][1]}}={{$experiments[$i]->value2}}({{$parameterUnits[$i][1]}})</a></li>
                                 @endif
-                                @if(count($experiments[$i]->parameters)>2)
+                                @if(isset($parameterNames[$i][2]))
                                     <li><a>{{$parameterNames[$i][2]}}={{$experiments[$i]->value3}}({{$parameterUnits[$i][2]}})</a></li>
                                 @endif()
-                                @if(count($experiments[$i]->parameters)>3)
+                                @if(isset($parameterNames[$i][3]))
                                     <li><a>{{$parameterNames[$i][3]}}={{$experiments[$i]->value4}}({{$parameterUnits[$i][3]}})</a></li>
                                 @endif
-                                @if(count($experiments[$i]->parameters)>4)
+                                @if(isset($parameterNames[$i][4]))
                                     <li><a>{{$parameterNames[$i][4]}}={{$experiments[$i]->value5}}({{$parameterUnits[$i][4]}})</a></li>
                                 @endif
-                                @if(count($experiments[$i]->parameters)>5)
+                                @if(isset($parameterNames[$i][5]))
                                     <li><a>{{$parameterNames[$i][5]}}={{$experiments[$i]->value6}}({{$parameterUnits[$i][5]}})</a></li>
                                 @endif
-                                @if(count($experiments[$i]->parameters)>6)
+                                @if(isset($parameterNames[$i][6]))
                                     <li><a>{{$parameterNames[$i][6]}}={{$experiments[$i]->value7}}({{$parameterUnits[$i][6]}})</a></li>
                                 @endif
-                                @if(count($experiments[$i]->parameters)>7)
+                                @if(isset($parameterNames[$i][7]))
                                     <li><a>{{$parameterNames[$i][7]}}={{$experiments[$i]->value8}}({{$parameterUnits[$i][7]}})</a></li>
                                 @endif
-                                @if(count($experiments[$i]->parameters)>8)
+                                @if(isset($parameterNames[$i][8]))
                                     <li><a>{{$parameterNames[$i][8]}}={{$experiments[$i]->value9}}({{$parameterUnits[$i][8]}})</a></li>
                                 @endif
-                                @if(count($experiments[$i]->parameters)>9)
+                                @if(isset($parameterNames[$i][9]))
                                     <li><a>{{$parameterNames[$i][9]}}={{$experiments[$i]->value10}}({{$parameterUnits[$i][9]}})</a></li>
                                 @endif
                         </ul>
+
                     </div>
                 </div>
             </div>

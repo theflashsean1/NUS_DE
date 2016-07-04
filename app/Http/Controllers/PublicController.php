@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PublicController extends Controller
 {
     public function getContact(){
-        return view('contact');
+        $users = User::all();
+        return view('contact',['users'=>$users]);
     }
 }

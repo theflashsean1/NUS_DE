@@ -49,12 +49,17 @@ class ExperimentController extends Controller
 
 
     public function postCreateExperiment(Request $request){
+       // $this->validate($request, [
+       //     'selected_dea_id'=>'min|0',
+       // ]);
         $experiment = new Experiment();
         $experiment -> name = $request['experiment_name'];
         $experiment -> dea_deg_other = $request['experiment_type'];
         $experiment -> purpose = $request['experiment_purpose'];
         $experiment -> procedure = $request['experiment_procedure'];
-        $experiment ->dea_id = $request['selected_dea_id'];
+        if(isset($request['selected_dea_id'])&&$request['selected_dea_id']!=''){
+            $experiment ->dea_id = $request['selected_dea_id'];
+        }
         $experiment->save();
 
 

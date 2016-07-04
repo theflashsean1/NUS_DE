@@ -6,6 +6,7 @@ Contact Us
 
 
 @section('content')
+    @if(!Auth::user())
     <div class="content contact">
 
         <div class="info">
@@ -67,7 +68,41 @@ Contact Us
             </div>
         </form>
     </div>
+    @endif
 
+    @if(Auth::user())
+        <section>
+            <h1>Teams</h1>
+            <div class="tbl-header">
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Focus</th>
+                        <th>email</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            <div  class="tbl-content">
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tbody class="equipment-tbody">
+                    @foreach($users as $user)
+                        <tr>
+                            <td>{{$user->id}}</td>
+                            <td>{{$user->first_name}}</td>
+                            <td>{{$user->focus}}</td>
+                            <td>{{$user->email}}</td>
+                        </tr>
+                    @endforeach
+
+
+                </tbody>
+                </table>
+            </div>
+        </section>
+    @endif
 
 
 
