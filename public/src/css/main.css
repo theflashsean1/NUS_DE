@@ -103,7 +103,7 @@ div.horizontal {
 .rr {
     position: relative;
     height: 200px;
-    background: #436480;
+    background: #e4b9c0;
     margin-top: 10px;
 }
 .rr.rr-left {
@@ -129,13 +129,13 @@ div.horizontal {
 
 .rr-left:after {
     right: 0;
-    border-left: 100px solid #436480;
+    border-left: 100px solid #e4b9c0;
     border-bottom: 200px solid white;
 }
 
 .rr-right:before {
     left: -100px;
-    border-right: 100px solid #436480;
+    border-right: 100px solid #e4b9c0;
     border-top: 200px solid transparent;
 }
 
@@ -216,10 +216,11 @@ div.horizontal {
     text-align: left;
 }
 
-
-
-
-
+.procedure_text{
+    overflow-x: auto;
+    font-family: "American Typewriter";
+    color: #000;
+}
 
 .rr-both ul {
     list-style-type: circle;
@@ -257,6 +258,11 @@ div.horizontal {
     background: #f6f6f6;
 }
 
+.rr-both .parameters li a{
+    width: 100%;
+    text-align: center;
+}
+
 
 
 .procedure_text{
@@ -280,7 +286,7 @@ h1{
     text-align: center;
     margin-bottom: 15px;
 }*/
-table{
+ table{
     width:100%;
     table-layout: fixed;
 }
