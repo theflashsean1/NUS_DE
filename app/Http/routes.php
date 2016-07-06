@@ -124,7 +124,7 @@ Route::post('/deleteDEA',[
 /*
  *  DEG page
  */
-Route::get('/DEG/{dimension_id}/{configuration_id}/{material_id}/{prestretch}/{page_num}',[
+Route::get('/DEG/{dimension_id}/{configuration_id}/{material_id}/{prestretch}/{layer}/{page_num}',[
     'uses'=>'DeController@getDegDashboard',
     'as' => 'degDashboard',
     'middleware' => 'auth'

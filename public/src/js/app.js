@@ -8,14 +8,11 @@ $('.navbar li').click(function(e) {
     if (!$this.hasClass('active')) {
         $this.addClass('active');
     }
-    // e.preventDefault();
 });
-
 
 $('.nav-tabs li').click(function(e) {
     $('.nav-tabs li.active').removeClass('active');
     var $this = $(this);
-
 
     if($this.index()!=0){
         $('#add-de').hide();
@@ -28,20 +25,13 @@ $('.nav-tabs li').click(function(e) {
     }else {
         $('#view-de').show();
     }
-    /*
-     * J query to only show the ones clicked for panel
-     * */
+    /* J query to only show the ones clicked for panel*/
     if (!$this.hasClass('active')) {
         $this.addClass('active');
     }
 });
 
-
-/*
- * Visual Effect for tables
- */
-
-
+/* For Experiment Views, hover left synchronize right, right -> left */
 $('.rr-both .rr-left').hover(function () {
     var temp = $($(event.target).closest('.rr-both').children()[1]);
     if(temp.hasClass('sync-rr-right')){
@@ -61,24 +51,24 @@ $('.rr-both .rr-right').hover(function () {
 
 /*///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 /*
- * for dea-dashboard.blade.php
+ * for dea/deg-dashboard.blade.php
  */
-var add_clicked = null; //this will be set as
-
-
+var add_clicked = null;
+/*When config/prestertch/layer/material/dimension selected, put the id in the seleced box*/
 $(document).on('click','.horizontal .table article',function () {
-    console.log('clicked');
-    var article = $(this);
-    var a = article.find("input").attr("value");
-    ((article).parent().parent().parent().parent().find('.output')).val(a);
+    //console.log('clicked');
+    $(this).fadeOut(250).fadeIn(250);
+    var a = $(this).find("input").attr("value");
+    var output_tag = ($(this)).parent().parent().parent().parent().find('.output');
+    output_tag.fadeOut(250).fadeIn(250);
+    (output_tag).val(a);
 });
-
-/* Modal */
+/*Add config/prestertch/layer/material/dimension selected*/
 $('.add-1, .add-2, .add-3, .add-4, .add-5').on('click',function () {
     event.preventDefault();
     add_clicked = event.target.parentNode.previousElementSibling.firstElementChild.firstElementChild.firstElementChild;
     var name = ($(event.target)['0'].className);
-    $('#'.concat(name)).modal();
+    $('#'+name).modal();
 });
 
 $('#add-1-modal-save, #add-2-modal-save, #add-3-modal-save, #add-4-modal-save, #add-5-modal-save').on('click',function(){
@@ -126,40 +116,48 @@ $('#add-1-modal-save, #add-2-modal-save, #add-3-modal-save, #add-4-modal-save, #
         });
     }
 });
-
-
-var deaId = 0;
+/*When Dea/Deg selected in view-de*/
+var deId = 0;
 var panel = "";
-$(document).on('click','div.view-DEA div.rr-right',function () {
-    panel = (event.target).closest('.rr-right');
-    var tempID = $(panel).find('h3')[0].innerHTML;
-    deaId = tempID.slice(3).trim();
-    console.log('ishere');
-    $('#edit-DEA').modal();
+$(document).on('click','div.view-DEA div.rr-right, div.view-DEG div.rr-right',function () {
+    panel = $(this);
+    var tempID = $(this).find('h3')[0].innerHTML;
+    deId = tempID.slice(3).trim();
+    console.log(deId);
+    var dea_deg = $(this).parent()[0].className.slice(-4,-1);
+    $('#edit-'+ dea_deg).modal();
 });
 
-$(document).on('click','div.view-DEA  div.rr-left',function () {
-    panel = (event.target).closest('.rr-left');
-    var tempID = $(panel).find('h3')[0].innerHTML;
-    deaId = tempID.slice(3).trim();
-    console.log('ishere');
-    $('#edit-DEA').modal();
+$(document).on('click','div.view-DEA  div.rr-left, div.view-DEG div.rr-left',function () {
+    panel = $(this);
+    var tempID = $(this).find('h3')[0].innerHTML;
+    deId = tempID.slice(3).trim();
+    console.log(deId);
+    var dea_deg = $(this).parent()[0].className.slice(-4,-1);
+    $('#edit-'+ dea_deg).modal();
 });
 
-$('#DEA-delete').on('click', function () {
+$('#DEA-delete, #DEG-delete').on('click', function () {
+    var url;
+    var dea_deg = this.id.slice(0,3);
+    dea_deg =='DEA'?url = urlDeleteDEA : url = urlDeleteDEG;
+    var modal_hide = "#edit-" + dea_deg;
+    console.log(modal_hide);
+    console.log(url);
+
     $.ajax({
             method: 'POST',
-            url: urlDeleteDEA,
-            data: {deaId: deaId, _token: token}
+            url: url,
+            data: {deId: deId, _token: token}
         }
     ).done(function (msg) {
-        $(panel).css('visibility','hidden');
-        $('#edit-DEA').modal('hide');
+        $(panel).fadeOut(500);
+        $(modal_hide).modal('hide');
     })
 });
 /*///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 /*
- * for dea-experiment.blade.php
+ * for dea/deg-experiment.blade.php
  */
 /*Modal for adding Equipment*/
 $('.equipment-form .glyphicon').on('click', function () {
@@ -170,8 +168,6 @@ $('.equipment-form .glyphicon').on('click', function () {
     }
     $('#add-equipment').modal();
 });
-
-
 $('#add-equipment-modal-save').on('click',function () {
     $.ajax({
             method: 'POST',
@@ -192,7 +188,7 @@ $('#add-equipment-modal-save').on('click',function () {
     })
 });
 
-/*Modal for Selecting DEA*/
+/*Modal for Selecting DEA/DEG*/
 $('.form-horizontal .well .select-dea').on('click', function(){
     event.preventDefault();
     $('#select-dea').modal();
@@ -251,7 +247,6 @@ $('#select-dea div.modal-content .select-dea-table .row select').on('change', fu
     //for loop, if '-1' or '' ignore that if statement check
 
 });
-
 
 /*Modal for Creating new Parameter*/
 $('.form-horizontal .row .create-parameter').on('click', function(){
@@ -409,37 +404,7 @@ $('span .min').change(function () {
         }
     }
 });
-/*
- var deaId = 0;
- var panel = "";
- $(document).on('click','div.view-DEA div.rr-right',function () {
- panel = (event.target).closest('.rr-right');
- var tempID = $(panel).find('h3')[0].innerHTML;
- deaId = tempID.slice(3).trim();
- console.log('ishere');
- $('#edit-DEA').modal();
- });
 
- $(document).on('click','div.view-DEA  div.rr-left',function () {
- panel = (event.target).closest('.rr-left');
- var tempID = $(panel).find('h3')[0].innerHTML;
- deaId = tempID.slice(3).trim();
- console.log('ishere');
- $('#edit-DEA').modal();
- });
-
- $('#DEA-delete').on('click', function () {
- $.ajax({
- method: 'POST',
- url: urlDeleteDEA,
- data: {deaId: deaId, _token: token}
- }
- ).done(function (msg) {
- $(panel).css('visibility','hidden');
- $('#edit-DEA').modal('hide');
- })
- });
- */
 
 var experimentId = 0;
 var experimentToRemove = "";

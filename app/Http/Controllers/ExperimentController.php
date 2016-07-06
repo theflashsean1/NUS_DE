@@ -13,10 +13,7 @@ class ExperimentController extends Controller
 {
     public function getDeaExperiment($page_number){
         $parameters = Parameter::orderBy('created_at', 'desc')->get();
-
-
         $equipments = Equipment::orderBy('created_at','desc')->get();
-
         $experiments = Experiment::where('dea_deg_other','=','DEA')->orderBy('created_at','desc')->get();
         $parameterNames =[[]]; // 2D array to hold parameters for each experiment
         $parameterUnits =[[]];
@@ -27,10 +24,8 @@ class ExperimentController extends Controller
             }
         }
 
-
         //For attaching a DEA to the Experiment
         $data = DeController::searchDea(-1,-1,-1,-1,-1);
-
         $dimensions = $data['dimensions'];
         $configurations = $data['configurations'];
         $materials = $data['materials'];
@@ -38,13 +33,34 @@ class ExperimentController extends Controller
         $layers = $data['layers'];
         $deas = $data['deas'];
 
-
         return view('dea-experiment',['page_number'=>$page_number,'parameters'=>$parameters,'equipments'=>$equipments,'experiments'=>$experiments,'parameterNames'=>$parameterNames,'parameterUnits'=>$parameterUnits,'deas'=>$deas,  'dimensions'=>$dimensions,
         'configurations' => $configurations, 'materials'=>$materials, 'prestretches'=>$prestretches, 'layers'=>$layers]);
     }
 
     public function getDegExperiment($page_number){
-        return view('deg-experiment', ['page_number'=>$page_number]);
+        $parameters = Parameter::orderBy('created_at', 'desc')->get();
+        $equipments = Equipment::orderBy('created_at','desc')->get();
+        $experiments = Experiment::where('dea_deg_other','=','DEG')->orderBy('created_at','desc')->get();
+        $parameterNames =[[]]; // 2D array to hold parameters for each experiment
+        $parameterUnits =[[]];
+        for ($i=0; $i<count($experiments);$i++){
+            foreach ($experiments[$i]->parameters as $parameter){
+                $parameterNames[$i][$parameter->pivot->type_value_index]=$parameter->name;
+                $parameterUnits[$i][$parameter->pivot->type_value_index]=$parameter->unit;
+            }
+        }
+
+        //For attaching a DEG to the Experiment
+        $data = DeController::searchDeg(-1,-1,-1,-1,-1);
+        $dimensions = $data['dimensions'];
+        $configurations = $data['configurations'];
+        $materials = $data['materials'];
+        $prestretches = $data['prestretches'];
+        $layers = $data['layers'];
+        $degs = $data['degs'];
+
+        return view('deg-experiment',['page_number'=>$page_number,'parameters'=>$parameters,'equipments'=>$equipments,'experiments'=>$experiments,'parameterNames'=>$parameterNames,'parameterUnits'=>$parameterUnits,'degs'=>$degs,  'dimensions'=>$dimensions,
+            'configurations' => $configurations, 'materials'=>$materials, 'prestretches'=>$prestretches, 'layers'=>$layers]);
     }
 
 

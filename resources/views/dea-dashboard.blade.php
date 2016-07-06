@@ -20,22 +20,20 @@
 @section('add-de')
     <div class="list-group add-de">
         <form action="{{route('post.createDEA')}}" method = 'post'>
-
-
-
             <div class="list-group-item">
                 <span class="row">
-                    <span class="col-md-4">
+                    <span class="col-md-3 col-sm-3">
                         <h4 class="list-group-item-heading">Dimension</h4>
                          <p class="list-group-item-text">Selected Dimension ID</p>
-                        <input class="output" name="dimension" type="text" value="-1" style="width: 40px" >
+                        <input class="output" name="dimension" type="text" value="-1" style="width: 40px" readonly >
                     </span>
 
-                    <span class="col-md-7">
+                    <span class="col-md-8  col-sm-8">
                         <div class="horizontal">
                             <div class="table">
                                     <article>
-                                        <h3>No selection</h3>
+                                        <h3>ID: -1</h3>
+                                        <h2>No selection</h2>
                                         <input type="hidden" value="-1">
                                     </article>
 
@@ -50,7 +48,7 @@
                             </div>
                         </div>
                     </span>
-                    <span class="col-md-1">
+                    <span class="col-md-1 col-sm-1">
                         <a href="#" class="add-1">Define new dimension</a>
                     </span>
                 </span>
@@ -58,17 +56,18 @@
 
             <div class="list-group-item">
                 <span class="row">
-                    <span class="col-md-4">
+                    <span class="col-md-3">
                         <h4 class="list-group-item-heading">Configuration</h4>
                          <p class="list-group-item-text">Selected Configuration ID:</p>
                          <input class="output" name="configuration" type="text" value="-1" style="width: 40px">
                     </span>
-                    <span class="col-md-7">
+                    <span class="col-md-8">
 
                     <div class="horizontal">
                             <div class="table">
                                     <article>
-                                        <h3>No selection</h3>
+                                        <h3>ID: -1</h3>
+                                        <h2>No selection</h2>
                                         <input type="hidden" value="-1">
                                     </article>
 
@@ -91,17 +90,18 @@
             </div>
             <div  class="list-group-item">
                 <span class="row">
-                    <span class="col-md-4">
+                    <span class="col-md-3">
                         <h4 class="list-group-item-heading">Material</h4>
                          <p class="list-group-item-text">Selected Material ID</p>
                          <input class="output" name="material" type="text" value="-1" style="width: 40px">
                     </span>
-                    <span class="col-md-7">
+                    <span class="col-md-8">
 
                    <div class="horizontal">
                             <div class="table">
                                     <article>
-                                        <h3>No selection</h3>
+                                        <h3>ID: -1</h3>
+                                        <h2>No selection</h2>
                                         <input type="hidden" value="-1">
                                     </article>
                                 @foreach($materials as $material)
@@ -123,17 +123,18 @@
             </div>
             <div class="list-group-item">
                 <span class="row">
-                    <span class="col-md-4">
+                    <span class="col-md-3">
                         <h4 class="list-group-item-heading">Prestretch</h4>
                          <p class="list-group-item-text">Selected prestretch value:</p>
                          <input class="output" name="prestretch" type="text" value="-1" style="width: 40px">
                     </span>
-                    <span class="col-md-7">
+                    <span class="col-md-8">
 
                     <div class="horizontal">
                             <div class="table">
                                     <article>
-                                        <h3>No selection</h3>
+                                        <h3>ID: -1</h3>
+                                        <h2>No selection</h2>
                                         <input type="hidden" value="-1">
                                     </article>
                                 @foreach($prestretches as $prestretch)
@@ -154,17 +155,18 @@
             </div>
             <div class="list-group-item">
                 <span class="row">
-                    <span class="col-md-4">
+                    <span class="col-md-3">
                         <h4 class="list-group-item-heading">Layer</h4>
                          <p class="list-group-item-text">Selected layer value:</p>
                          <input class="output" name="layer" type="text" value="-1" style="width: 40px">
                     </span>
-                    <span class="col-md-7">
+                    <span class="col-md-8">
 
                     <div class="horizontal" id="final">
                             <div class="table">
                                     <article>
-                                        <h3>No selection</h3>
+                                        <h3>ID: -1</h3>
+                                        <h2>No selection</h2>
                                         <input type="hidden" value="-1">
                                     </article>
                                 @foreach($layers as $layer)

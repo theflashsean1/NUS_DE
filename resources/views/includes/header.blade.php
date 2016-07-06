@@ -41,7 +41,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Energy<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="{{route('degDashboard',['dimension_id'=>'-1','configuration_id'=>'-1','material_id'=>'-1','prestretch'=>'-1.0','page_number'=>'1'])}}">DEG</a></li>
+                                <li><a href="{{route('degDashboard',['dimension_id'=>'-1','configuration_id'=>'-1','material_id'=>'-1','prestretch'=>'-1.0','layer'=>'-1','page_number'=>'1'])}}">DEG</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a href="{{route('degExperiment', ['page_number'=>'1'])}}">Experiments</a></li>
                                 <li role="separator" class="divider"></li>

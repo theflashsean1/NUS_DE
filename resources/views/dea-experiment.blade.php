@@ -1,6 +1,4 @@
 @extends('layouts.de-template')
-
-
 @section('type')DEA-Experiment
 @endsection
 
@@ -16,9 +14,8 @@
 @section('page2_display')block @endsection
 @endif
 
-
 @section('add-de')
-    <form class="form-horizontal" method="post" action="{{route('post.createExperiment')}}">
+    <form class="form-horizontal add-de-experiments" method="post" action="{{route('post.createExperiment')}}">
         <div class="form-group">
             <label class="col-md-1 control-label">Name</label>
             <div class="col-md-5">
@@ -56,14 +53,11 @@
                 <textarea class="form-control" name="experiment_procedure" rows="3"></textarea>
             </div>
         </div>
-
         <div class="well well-sm" style="text-align: center; font-family: 'Al Bayan'; font-size: large;">
             <a href="#" class="select-dea" >Select DEA</a><br/>
             <label for="ID">ID:</label> 
-            <input type="number" name="selected_dea_id" style="width: 40px;" readonly>
+            <input type="number" name="selected_dea_id" style="text-align: center; width: 40px" readonly>
         </div>
-
-
 
         <div class="well well-sm" style="text-align: center; font-family: 'Al Bayan'; font-size: large;">
             Result Parameters
@@ -76,15 +70,13 @@
         <div class="form-group">
         </div>
 
-
-
         <div class="parameter-form">
         @for($i = 0; $i<10; $i++)
                 <div class="form-group">
                     <label for="Parameter {{$i+1}}" class="col-md-offset-1 col-md-2 control-label">Parameter {{$i+1}}</label>
                     <div class="col-md-3">
                         <select class="form-control" name="parameter{{$i+1}}_id">
-                            <option value="-1" disabled selected ></option>
+                            <option value="-1" selected ></option>
                             <option value="-1" disabled ><b>Continuous</b></option>
                             @foreach($parameters as $para1)
                                 <option value="{{$para1->id}}">{{$para1->name}}({{$para1->unit}})</option>
@@ -95,8 +87,11 @@
                     </div>
 
                     <label for="inputPassword3" class="col-md-offset-1 col-md-1 control-label">Value</label>
-                    <div class="col-md-4">
-                        <input type="text" name="parameter{{$i+1}}_value">
+                    <div class="col-md-2">
+                        <input type="number" name="parameter{{$i+1}}_value">
+                    </div>
+                    <div class="col-md-2">
+                        <p class="unit"></p>
                     </div>
                 </div>
 
@@ -106,20 +101,14 @@
         <div class="well well-sm" style="text-align: center; font-family: 'Al Bayan'; font-size: large;">
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-4 col-md-4">
-                <button type="submit" class="btn btn-default">Add Experiment!</button>
+        <div class="row">
+            <div class="col-md-2 col-md-offset-5">
+                <button type = 'submit' class="btn btn-primary">Create Experiment</button>
                 <input type="hidden" value = "{{Session::token()}}" name="_token">
             </div>
         </div>
-
     </form>
-
-
-
 @endsection
-
-
 
 
 @section('view-de')
