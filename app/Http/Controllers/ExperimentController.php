@@ -74,10 +74,9 @@ class ExperimentController extends Controller
         $experiment -> purpose = $request['experiment_purpose'];
         $experiment -> procedure = $request['experiment_procedure'];
         if(isset($request['selected_dea_id'])&&$request['selected_dea_id']!=''){
-            $experiment ->dea_id = $request['selected_dea_id'];
+            $experiment ->dea_id = $request['selected_dea_id']; //TODO fix dea_id to de_id including database
         }
         $experiment->save();
-
 
         for ($i = 0; $i<5; $i++){
             $tempEquipmentID = 'equipment'.($i+1).'_id';
@@ -106,10 +105,9 @@ class ExperimentController extends Controller
            }
         }
         $experiment->save();
-
         return redirect()->back();
-
     }
+
     public function postDeleteExperiment(Request $request){
         $experiment = Experiment::where('id', $request['experiment_id'])->first();
         $experiment->delete();

@@ -189,63 +189,61 @@ $('#add-equipment-modal-save').on('click',function () {
 });
 
 /*Modal for Selecting DEA/DEG*/
-$('.form-horizontal .well .select-dea').on('click', function(){
+var deIdInputElement;
+var dea_deg_select;
+$('.form-horizontal .well .select-dea, .form-horizontal .well .select-deg').on('click', function(){
     event.preventDefault();
-    $('#select-dea').modal();
+    deIdInputElement = $(this).parent().children()[3];
+    dea_deg_select = this.className;
+    $('#'+dea_deg_select).modal();
 });
-
 $(document).on('click','div.modal-dialog div.rr-left',function () {
-    //get ID and hide modal
-    var input = $('.form-horizontal .well .select-dea').parent().children()[3];
-    var selected_id = (($(event.target).closest('div.rr').find('h3'))[0].innerHTML).slice(3).trim();
-    $(input).val(selected_id);
-    $('#select-dea').modal('hide');
+    var selected_id = ($(this).find('h3')[0].innerHTML).slice(3).trim();
+    $(deIdInputElement).val(selected_id);
+    $('#'+dea_deg_select).modal('hide');
 });
 $(document).on('click','div.modal-dialog div.rr-right',function () {
-    //get ID and hide modal
-    var input = $('.form-horizontal .well .select-dea').parent().children()[3];
-    var selected_id = (($(event.target).closest('div.rr').find('h3'))[0].innerHTML).slice(3).trim();
-    $(input).val(selected_id);
-    $('#select-dea').modal('hide');
-    //$('#select-dea').modal('hide');
+    var selected_id = ($(this).find('h3')[0].innerHTML).slice(3).trim();
+    $(deIdInputElement).val(selected_id);
+    $('#'+dea_deg_select).modal('hide');
 });
 
-
 var deSelectors = {'dimension_id':-1,'configuration_id':-1,'material_id':-1,'prestretch':-1,'layer':-1};
-$('#select-dea div.modal-content .select-dea-table .row select').on('change', function () {
-    var selector_name = $(event.target).attr('name');
-    var selector_value = $(event.target).val(); //ID for first three, value for last two
+$('#select-dea div.modal-content .select-dea-table .row select, #select-deg div.modal-content .select-deg-table .row select').on('change', function () {
+    var dea_deg_string = dea_deg_select.slice(-3);
+    var selector_name = $(this).attr('name');
+    var selector_value = $(this).val();
     deSelectors[selector_name] = selector_value;
-    console.log(deSelectors);
-    var dea_array = $('#select-dea .rr');
-    for(var i =0; i<dea_array.length;i++){
+    var de_array = $('#'+dea_deg_select + ' .rr');
+    console.log(de_array);
+
+    for(var i =0; i<de_array.length;i++){
         console.log('new one');
         var isShow = true;
         if(deSelectors['dimension_id']!=-1){
-            $($(dea_array[i]).find('input')[4]).val()==deSelectors['dimension_id']?null:isShow=false;
+            $($(de_array[i]).find('input')[4]).val()==deSelectors['dimension_id']?null:isShow=false;
         }
         if(deSelectors['configuration_id']!=-1){
-            $($(dea_array[i]).find('input')[0]).val()==deSelectors['configuration_id']?null:isShow=false;
+            $($(de_array[i]).find('input')[0]).val()==deSelectors['configuration_id']?null:isShow=false;
         }
         if(deSelectors['material_id']!=-1){
-            $($(dea_array[i]).find('input')[1]).val()==deSelectors['material_id']?null:isShow=false;
+            $($(de_array[i]).find('input')[1]).val()==deSelectors['material_id']?null:isShow=false;
         }
         if(deSelectors['prestretch']!=-1){
-            $($(dea_array[i]).find('input')[2]).val()==deSelectors['prestretch']?null:isShow=false;
+            $($(de_array[i]).find('input')[2]).val()==deSelectors['prestretch']?null:isShow=false;
         }
         if(deSelectors['layer']!=-1){
-            $($(dea_array[i]).find('input')[3]).val()==deSelectors['layer']?null:isShow=false;
+            $($(de_array[i]).find('input')[3]).val()==deSelectors['layer']?null:isShow=false;
         }
 
         if(isShow){
-            $(dea_array[i]).css('visibility','visible');
+            $(de_array[i]).css('visibility','visible');
         }else{
-            $(dea_array[i]).css('visibility','hidden');
+            $(de_array[i]).css('visibility','hidden');
         }
 
     }
     //for loop, if '-1' or '' ignore that if statement check
-
 });
 
 /*Modal for Creating new Parameter*/
@@ -253,7 +251,6 @@ $('.form-horizontal .row .create-parameter').on('click', function(){
     event.preventDefault();
     $('#add-parameter').modal();
 });
-
 $('#add-parameter-modal-save').on('click', function () {
     event.preventDefault();
     var name = $('#add-parameter div.modal-body div.form-group input')[0];
@@ -261,21 +258,18 @@ $('#add-parameter-modal-save').on('click', function () {
     var unit = $('#add-parameter div.modal-body div.form-group input')[1];
 
     var description = $('#add-parameter div.modal-body div.form-group textarea')[0];
-    //console.log($(name).val()+' '+$(type).val()+' '+$(unit).val()+ ' '+$(description).val());
     $.ajax({
             method: 'POST',
             url: create_parameter_url,
             data: {parameter_name: $(name).val() ,parameter_description: $(description).val(),parameter_type: $(type).val() ,parameter_unit:$(unit).val(),_token: token}
         }
     ).done(function (msg) {
-        //MAKE UI BETTER
         var allSelects = $('div.parameter-form select');
         var newOption = "<option value="+msg['new_parameter_id']+ ">" + msg['new_parameter_name'] +"(" +msg['new_parameter_unit']+")"+"</option>";
         for(var i=0;i<allSelects.length;i++){
             var select = allSelects[i];
             $($(select).find('option')[1]).after(newOption);
         }
-
         $('#add-parameter').modal('hide');
     })
 })
@@ -284,14 +278,29 @@ $('#add-parameter-modal-save').on('click', function () {
 /*Searching for Experiment */
 var allParameterChecks=[];//2D array for each experiment [[para1([min, max]) para2...till all parain query box],[....]]
 $('.parameters_filter_start_button').click(function () {
-    if ($(event.target).text()=='Reset'){
-        $('.parameters_filter_tools').hide();
-        $(event.target).text('Fileter Experiments!');
+    if ($(this).text()=='Reset'){
+        $('.parameters_filter_tools .row input').val(null);
+        var experiments = $('.view-DEA-Experiment .parameters');
+
+        if (experiments.length == 0){
+            experiments = $('.view-DEG-Experiment .parameters');
+        }
+
+        for(var i = 0; i<experiments.length; i++ ){
+            //console.log(experiments[i]);
+            $(experiments[i]).fadeIn(1000);
+            $($(experiments[i]).parent().children()[0]).fadeIn(1000);
+        }
+
+        //console.log($('.view-DEA-Experiment .rr-both'));
+        //console.log($('.view-DEG-Experiment .rr-both'));
+        $('.parameters_filter_tools').slideUp(500);
+        $(this).text('Fileter Experiments!');
         return;
     }
 
     allParameterChecks = [];
-    $('.parameters_filter_tools').show();
+    $('.parameters_filter_tools').slideDown(500);
     var allPara = $('.parameters_filter_tools').find('.row');
     var length = allPara.length;
     //console.log(length);
@@ -305,7 +314,7 @@ $('.parameters_filter_start_button').click(function () {
         }
         allParameterChecks.push(tempParas);
     }
-    console.log(tempParas);
+    //console.log(tempParas);
     //console.log(allParameterChecks);
     $(event.target).text('Reset');
 });
@@ -347,13 +356,13 @@ $('span .max').change(function () {
 
 
         if (isShow){
-        //    console.log(experiments[i]);
-            $(experiments[i]).show();
-            $($(experiments[i]).parent().children()[0]).show();
+          // console.log($(experiments[i]).parent().children()[0]);
+            $(experiments[i]).fadeIn(1000);
+            $($(experiments[i]).parent().children()[0]).fadeIn(1000);
         }else{
-         //   console.log('no way')
-            $(experiments[i]).hide();
-            $($(experiments[i]).parent().children()[0]).hide();
+           console.log('no way')
+            $(experiments[i]).fadeOut(1000);
+            $($(experiments[i]).parent().children()[0]).fadeOut(1000);
         }
 
     }
@@ -395,12 +404,11 @@ $('span .min').change(function () {
         }
 
         if (isShow){
-            $(experiments[i]).show();
-            $($(experiments[i]).parent().children()[0]).show();
+            $(experiments[i]).fadeIn(1000);
+            $($(experiments[i]).parent().children()[0]).fadeIn(1000);
         }else{
-
-            $(experiments[i]).hide();
-            $($(experiments[i]).parent().children()[0]).hide();
+            $(experiments[i]).fadeOut(1000);
+            $($(experiments[i]).parent().children()[0]).fadeOut(1000);
         }
     }
 });

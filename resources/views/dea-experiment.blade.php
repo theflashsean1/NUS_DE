@@ -112,12 +112,11 @@
 
 
 @section('view-de')
-<div class="row">
-    <div class="col-md-4 col-md-offset-4">
-        <button class="parameters_filter_start_button" style="width: 100%; margin-bottom: 10px; font-family: Futura">Filter Experiments!</button>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <button class="parameters_filter_start_button btn-primary" >Filter Experiments!</button>
+        </div>
     </div>
-</div>
-
     <form action="" method="post">
         <span class="parameters_filter_tools" hidden>
             @for($i =0;$i<count($parameters);$i++)
@@ -127,11 +126,13 @@
                     </div>
                     <div class="col-md-4">
                         <
-                        <input type="number" name="{{$parameters[$i]->name}}" class="max">({{$parameters[$i]->unit}})
+                        <input type="number" name="{{$parameters[$i]->name}}" class="max">
+                        ({{$parameters[$i]->unit}})
                     </div>
                     <div class="col-md-4">
                         >
-                        <input type="number" name="{{$parameters[$i]->name}}" class="min">({{$parameters[$i]->unit}})
+                        <input type="number" name="{{$parameters[$i]->name}}" class="min">
+                        ({{$parameters[$i]->unit}})
                     </div>
                 </div>
             @endfor
@@ -152,25 +153,22 @@
                                 <p class="name_text">{{$experiments[$i]->name}}</p>
                             </div>
                         </div>
-
                         <div class="row">
-                            <p class="purpose_text">Purpose: {{$experiments[$i]->purpose}}</p>
+                            <p class="purpose_text" ><i>-{{$experiments[$i]->purpose}}</i></p>
                         </div>
-
-                        <div class="row">
-                            <div class="col-md-3">
+                        <div class="row last-row">
+                            <div class="col-md-4">
                                 <label>DEA</label>
                                 <ul>
-
                                     <li><a>@if(isset($experiments[$i]->dea->configuration)){{$experiments[$i]->dea->configuration->name}}@endif</a></li>
                                     <li><a>@if(isset($experiments[$i]->dea->material)){{$experiments[$i]->dea->material->name}}@endif</a></li>
                                     <li><a>@if(isset($experiments[$i]->dea->prestretch))pre:{{$experiments[$i]->dea->prestretch}}@endif</a></li>
                                     <li><a>@if(isset($experiments[$i]->dea->layer))layer:{{$experiments[$i]->dea->layer}}@endif</a></li>
 
+                                    <li><a>@if(isset($experiments[$i]->dea->layer)){{$experiments[$i]->dea->dimension->name}}@endif</a></li>
                                 </ul>
                             </div>
-
-                            <div class="col-md-5 tools-for-experiment">
+                            <div class="col-md-4 tools-for-experiment">
                                 <label>Tool</label>
                                 <ul>
                                     @if(count($experiments[$i]->equipment)>0)
@@ -206,7 +204,6 @@
                                 <h3>Parameters</h3>
                             </div>
                         </div>
-
                         <ul>
                                 @if(isset($parameterNames[$i][0]))
                                     <li><a>{{$parameterNames[$i][0]}}={{$experiments[$i]->value1}}({{$parameterUnits[$i][0]}})</a></li>
@@ -281,16 +278,13 @@
     <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="select-dea">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">Select DEA</h4>
                 </div>
-
                 <section class="select-dea-table">
                     @include('includes/dea-table')
                 </section>
-
             </div>
         </div>
     </div>
@@ -299,39 +293,30 @@
     <div class="modal fade" tabindex="-1" role="dialog" id="add-parameter">
         <div class="modal-dialog">
             <div class="modal-content">
-
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">Edit DEA</h4>
                 </div>
-
-
                 <div class="modal-body">
                     <form action="#">
-
                         <div class="form-group">
                             <label for="post-body">Parameter Name</label>
                             <input type="text" name="parameter-name">
 
-
                             <label for="post-body">Unit</label>
                             <input type="text" name="parameter-unit" style="width: 20%;">
                         </div>
-
                         <div class="form-group">
                             <label for="parameter-description">Description</label>
                             <textarea class="form-control" name="post-body" id="post-body" rows="5"></textarea>
                         </div>
-
                     </form>
                 </div>
-
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" id = "add-parameter-modal-save">Save changes</button>
                 </div>
-
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->

@@ -1,6 +1,5 @@
 @extends('layouts.de-template')
 
-
 @section('type')DEA
 @endsection
 
@@ -209,8 +208,6 @@
         <div class="modal fade" tabindex="-1" role="dialog" id="add-{{$i+1}}">
             <div class="modal-dialog">
                 <div class="modal-content">
-
-
 
                     <?php
                         $form = " <div class='modal-header'>

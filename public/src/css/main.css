@@ -242,116 +242,121 @@ h1.welcome-message { color: #f9f2f4; font-family: "Great Vibes", cursive; font-s
 }
 
 
-
-
-/* View Experiments Text Layout*/
-/*200px = (5+30) + (5+30) + (5+60) + (5+60) + overall for each box*/
-
-
-.id_text{
-/*    border-style: solid; */
-    border-color: #dff0d8;
-    border-width: 1px;
-    height: 20px;
-
-    margin-top: 2px;
-
-    font-size: medium;
+/* View Experiments Layout except table views overall design*/
+/*200px =  for each box*/
+.parameters_filter_start_button{
+    width: 100%;
+    margin-bottom: 10px;
+    font-family: 'American Typewriter'
+}
+.parameters_filter_tools{
+    width: 100%;
+}
+.parameters_filter_tools .row{
+    margin-bottom: 20px;
+}
+.parameters_filter_tools .row input{
+    border: solid;
+    text-align: center;
 }
 
-.name_text{
-
-/*    border-style: groove; */
-    border-color: #dff0d8;
-    border-width: 1px;
-    height: 20px;
-
-    margin-top: 2px;
+.rr-both {
     font-family: "American Typewriter";
+}
+
+.rr-both .id_text{
+    text-align: left;
+    padding: 2px;
+    height: 20%;
+    margin-top: 2px;
     font-size: medium;
 }
 
-.purpose_text{
+.rr-both .name_text{
+    border-style: groove;
+    border-color: #269abc;
+    border-width: 1px;
+    padding: 2px;
+    height: 20%;
+    margin-top: 2px;
+    font-weight: bold;
+    font-size: medium;
+    overflow-y: hidden;
+    overflow-x: scroll;
+}
 
-
-    height: 20px;
-
-
+.rr-both .purpose_text{
+    height: 10%;
     font-family: "Apple Braille";
     font-size: medium;
     text-align: left;
-}
+    padding-left: 10px;
+    padding-right: 10px;
 
-.procedure_text{
-    overflow-x: auto;
-    font-family: "American Typewriter";
-    color: #000;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.rr-both .last-row{
+    height: 80%;
+}
+.rr-both .last-row .col-md-4{
+    height:100%;
+}
+.rr-both .procedure_text{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 50%;
+
 }
 
 .rr-both ul {
     list-style-type: circle;
     margin: 0;
     padding: 0;
-    height: 100px;
-    overflow-x: auto;
+    height: 60%;
+    width: 100%;
 
+    overflow: auto;
 }
 
 .rr-both li {
-    font-family: "American Typewriter";
      border-bottom: 1px dashed #ccc;
+     white-space: nowrap;
 }
-
 .rr-both li:last-child {
     border: none;
 }
-
 .rr-both li a {
     text-decoration: none;
     color: #000;
-
     -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
     -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
     -o-transition: font-size 0.3s ease, background-color 0.3s ease;
     -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
     transition: font-size 0.3s ease, background-color 0.3s ease;
     display: block;
-    width: 100px;
+    width: 100%;
+}
+
+.rr-both li :hover{
+    width: 200%;
 }
 
 .rr-both li a:hover {
     font-size: 25px;
     background: #f6f6f6;
+    width: 200%;
 }
-
 .rr-both .parameters li a{
     width: 100%;
     text-align: center;
-}
-
-
-
-.procedure_text{
-    /*
-    border-style: dotted;
-    border-color: #dff0d8;
-    border-width: 1px;*/
-    height: 100px;
-
+    overflow-x: scroll;
+    overflow-y: hidden;
 }
 
 
 
 /*table attribute for management*/
-/*
-h1{
-    font-size: 30px;
-    color: #fff;
-    text-transform: uppercase;
-    font-weight: 300;
-    text-align: center;
-    margin-bottom: 15px;
-}*/
  table{
     width:100%;
     table-layout: fixed;
@@ -450,8 +455,8 @@ section{
     color: black;
 }
 
-/*Contact Us CSS*/
 
+/*Contact Us CSS*/
 .contact .content {
     border-top: 1px #616363 solid;
     margin-top: 25px;
