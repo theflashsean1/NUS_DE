@@ -31,6 +31,18 @@ $('.nav-tabs li').click(function(e) {
     }
 });
 
+/*Preview Mouseover*/
+var displayedContentIndex = -1;
+$('.container-previews ul li').on('mouseover',function () {
+    if (displayedContentIndex!=$(this).index()){
+       // console.log($('.container-content-views ul li')[$(this).index()]);
+        $($('.container-content-views ul li')[displayedContentIndex]).hide();
+        $($('.container-content-views ul li')[$(this).index()]).fadeIn(500);
+        displayedContentIndex = $(this).index();
+    }
+
+});
+
 /* For Experiment Views, hover left synchronize right, right -> left */
 $('.rr-both .rr-left').hover(function () {
     var temp = $($(event.target).closest('.rr-both').children()[1]);

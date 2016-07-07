@@ -19,9 +19,9 @@
 
                     <li><a href="{{route('progress-pub')}}">Progress</a></li>
 
-                    <li><a href="#">DEA</a></li>
+                    <li><a href="{{route('dea-pub')}}">DEA</a></li>
 
-                    <li><a href="#">DEG</a></li>
+                    <li><a href="{{route('deg-pub')}}">DEG</a></li>
 
                     <li><a href="{{route('contact')}}">Contact</a></li>
 

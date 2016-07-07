@@ -52,6 +52,19 @@ Route::get('/userimage/{filename}',[
 /*
  * 'Semi-Static' Pages routes
  */
+Route::get('/dea/pub',[
+    'uses' => 'PublicController@getDeaContent',
+    'as' => 'dea-pub'
+]);
+Route::get('/deg/pub',[
+    'uses' => 'PublicController@getDegContent',
+    'as' => 'deg-pub'
+]);
+Route::get('/publicimage/{filename}',[
+    'uses' => 'PublicController@getPublicImage',
+    'as' => 'public.image'
+]);
+
 Route::get('/contact',[
     'uses'=>'PublicController@getContact',
     'as' => 'contact'

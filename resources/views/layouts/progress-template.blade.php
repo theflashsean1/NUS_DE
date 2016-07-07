@@ -2,6 +2,16 @@
 
 @section('content')
     @include('includes.message-block')
+    @if(!Auth::user())
+        <div class="row title-for-pub">
+            <div class="col-md-12">
+                <h1>Progress</h1>
+                <p class="lead">Where we are right now </p>
+                <p><i></i></p>
+            </div>
+        </div>
+    @endif
+
     @if(Auth::user())
     <section class="row new-post">
         <div class="col-md-6 col-md-offset-3">

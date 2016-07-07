@@ -456,6 +456,80 @@ section{
 }
 
 
+
+/*DEA/DEG Pub page CSS*/
+.title-for-pub{
+    text-align: center;
+}
+.de-pub .container-previews{
+    margin-top: 40px;
+    height: 300px;
+}
+.de-pub .container-previews ul{
+    margin-left: 20%;
+    height: 100%;
+    vertical-align: middle;
+
+}
+.de-pub  .container-previews ul li{
+
+    height: 100%;
+    width: 25%;
+
+    background-size: cover;
+    background: -webkit-linear-gradient(top, #262626, #31b0d5, #262626);
+    background: linear-gradient(to bottom, #262626, #31b0d5, #262626);
+    color: #FFFFFF;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px; /* future proofing */
+    -khtml-border-radius: 10px;
+    text-align: center;
+    font-family: "American Typewriter";
+}
+.de-pub  .container-previews ul li a{
+    display: block;
+}
+.de-pub .container-previews ul li h2{
+    margin-top: 30%;
+    height: 20%;
+
+}
+.de-pub .container-previews ul li p{
+    font-style: italic;
+
+}
+
+.de-pub .container-previews ul li:hover{
+    background-color: #31b0d5;
+}
+
+.de-pub .container-previews ul:hover li {
+    opacity: .5;
+}
+
+.de-pub .container-previews ul li:hover {
+    opacity: 1;
+}
+
+.de-pub .container-content-views{
+    margin-top: 80px;
+}
+
+.de-pub .container-content-views ul li{
+    margin-left: 15%;
+    width: 70%;
+    margin-right: 15%;
+    text-align: center;
+    list-style: none;
+    height: 400px;
+}
+
+/**/
+
+
+
+
 /*Contact Us CSS*/
 .contact .content {
     border-top: 1px #616363 solid;

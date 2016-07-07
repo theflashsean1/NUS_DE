@@ -1,5 +1,5 @@
-@extends('welcome')
-
+@extends('layouts.master')
+{{-- layouts.master or welcome????--}}
 @section('title')
     DE Database
 @endsection

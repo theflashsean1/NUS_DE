@@ -54,6 +54,24 @@ return [
             'visibility' => 'public',
         ],
 
+        'dea' => [
+            'driver' => 'local',
+            'root' => storage_path('app/dea')
+        ],
+        'deg' => [
+            'driver' => 'local',
+            'root' => storage_path('app/deg')
+
+        ],
+        'dea_applications' => [
+            'driver' => 'local',
+            'root' => storage_path('app/dea_applications')
+        ],
+        'deg_applications' => [
+            'driver' => 'local',
+            'root' => storage_path('app/deg_applications')
+        ],
+        
         's3' => [
             'driver' => 's3',
             'key' => 'your-key',
