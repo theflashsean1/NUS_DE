@@ -18,6 +18,10 @@ class CreateEquipmentTable extends Migration
             $table->char('name');
             $table->text('description');
 
+            $table->enum('type',['dea_application', 'deg_application','experiment_tool']);
+
+            $table->boolean('visible');
+
         });
     }
 

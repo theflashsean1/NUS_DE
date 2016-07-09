@@ -411,6 +411,12 @@ section{
 }
 
 /*post CSS*/
+
+
+section.posts h3{
+    text-align: center;
+}
+
 .new-post{
     padding: 16px 0;
     border-bottom: 1px solid #ccc;

@@ -18,7 +18,7 @@
 
 @section('add-de')
     <div class="list-group add-de">
-        <form action="{{route('post.createDEA')}}" method = 'post'>
+        <form action="{{route('post.createDEA')}}" method = 'post' enctype="multipart/form-data">
             <div class="list-group-item">
                 <span class="row">
                     <span class="col-md-3 col-sm-3">
@@ -184,7 +184,16 @@
                     </span>
                 </span>
             </div>
-
+            <div class="row">
+                <div class="form-group col-md-4 col-md-offset-3">
+                    <label for="image">Image (only .jpg)</label>
+                    <input type="file" name="image" class = "form-control" id="image">
+                </div>
+                <div class="form-group col-md-1 col-md-offset-1">
+                    <label for="visibility">Visibility (public)</label>
+                    <input type="checkbox" name="visibility"  id="visibility" value="true">
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-2 col-md-offset-5">
                     <button type = 'submit' class="btn btn-primary">Create DEA</button>
@@ -261,20 +270,25 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Edit DEA</h4>
+                    <h4 class="modal-title">DEA Photo/Edit</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="#">
-                        <div class="form-group">
-                            <label for="post-body">Edit DEA</label>
-                            <textarea class="form-control" name="post-body" id="post-body" rows="5"></textarea>
+
+                    <div class="row">
+                        <div class="col-md-12" id="de-image-container">
+                            <img id="de-photo" src="{{route('public.image', ['filename'=>'dea_theory1.jpg'])}}" alt="" class="img-responsive" align="middle" style="margin: auto">
                         </div>
-                    </form>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
+                    <div class="form-group" style="float: left">
+                        <label for="visibility">Visibility (public)</label>
+                        <input type="checkbox" name="visibility"  id="visibility-checkbox" value="true">
+                    </div>
                     <button class="btn btn-danger" style="color: #000000" href="#" id="DEA-delete">Delete</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id = "DEA-save">Save changes</button>
+             {{--       <button type="button" class="btn btn-primary" id = "DEA-save">Save changes</button> --}}
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -287,5 +301,8 @@
         var urlConfiguration = '{{route('post.addConfiguration')}}';
         var urlMaterial = '{{route('post.addMaterial')}}';
         var urlDeleteDEA = '{{route('post.deleteDEA')}}';
+        var urlDeaImage = '{{route('post.deaImage')}}';
+        var urlDeaVisibility = '{{route('post.deaVisibility')}}';
+        var urlDeaToggleVisibility ='{{route('post.deaToggleVisibility')}}';
     </script>
 @endsection

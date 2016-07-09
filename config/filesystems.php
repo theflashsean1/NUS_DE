@@ -63,15 +63,14 @@ return [
             'root' => storage_path('app/deg')
 
         ],
-        'dea_applications' => [
+        'experiments' => [
             'driver' => 'local',
-            'root' => storage_path('app/dea_applications')
+            'root' => storage_path('app/experiments')
         ],
-        'deg_applications' => [
+        'equipment' => [
             'driver' => 'local',
-            'root' => storage_path('app/deg_applications')
+            'root' => storage_path('app/equipment')
         ],
-        
         's3' => [
             'driver' => 's3',
             'key' => 'your-key',

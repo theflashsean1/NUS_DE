@@ -7,8 +7,11 @@ use App\Deg;
 use App\Dimension;
 use App\Material;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class DeController extends Controller
 {
@@ -125,6 +128,17 @@ class DeController extends Controller
         if ($request['layer']!=-1){
             $dea->layer = $request['layer'];
         }
+        if ($request['visibility'] == 'true'){
+            $dea->visible = true;
+        }
+        $dea->save();
+        if (isset($request['image'])){
+            $file = $request->file('image');
+            $filename = 'dea_'. $dea->id . '.jpg';
+            if ($file){
+                Storage::disk('dea')->put($filename, File::get($file));
+            }
+        }
         $message = 'There was an error';
 
         if($dea -> save()){
@@ -143,6 +157,29 @@ class DeController extends Controller
         return response()->json(200);
     }
 
+    public function postDeaImage(Request $request){
+       // Storage::disk('local')->has($user->first_name.'-'.$user->id.'.jpg');
+        $file;
+        if (Storage::disk('dea')->has($request['filename'])){
+            $file = Storage::disk('dea')->get($request['filename']);
+            $file = base64_encode($file);
+        }else{
+            $file = null;
+        }
+        return new Response($file, 200);
+    }
+    public function postDeaVisibility(Request $request){
+        $deaId = $request['id'];
+        $isVisible = Dea::where('id', $deaId)->value('visible');
+        return response()->json(['isVisible'=>$isVisible],200);
+    }
+    public function postDeaToggleVisibility(Request $request){
+        $deaId = $request['id'];
+        $dea = Dea::where('id', $request['deId'])->first();
+        $dea->visible = !$dea->visible;
+        $dea->update();
+        return response()->json(200);
+    }
 
     /*
      * DEG Related
@@ -262,12 +299,24 @@ class DeController extends Controller
         if ($request['layer']!=-1){
             $deg->layer = $request['layer'];
         }
+        if ($request['visibility'] == 'true'){
+            $deg->visible = true;
+        }
+
+        $deg->save();
+
+        if (isset($request['image'])){
+            $file = $request->file('image');
+            $filename = 'deg_'. $deg->id . '.jpg';
+            if ($file){
+                Storage::disk('deg')->put($filename, File::get($file));
+            }
+        }
         $message = 'There was an error';
 
         if($deg -> save()){
             $message = 'DEG successfully created';
         };
-
         return redirect()->route('degDashboard',['dimension_id'=>-1,'configuration_id'=>-1
             ,'material_id'=>-1,'prestretch'=>-1,'layer'=>-1,'page_number'=>'2'])->with(['message'=> $message]);
     }
@@ -281,6 +330,28 @@ class DeController extends Controller
     }
 
 
+    public function postDegImage(Request $request){
+        $file;
+        if (Storage::disk('deg')->has($request['filename'])){
+            $file = Storage::disk('deg')->get($request['filename']);
+            $file = base64_encode($file);
+        }else{
+            $file = null;
+        }
+        return new Response($file, 200);
+    }
+    public function postDegVisibility(Request $request){
+        $degId = $request['id'];
+        $isVisible = Deg::where('id', $degId)->value('visible');
+        return response()->json(['isVisible'=>$isVisible],200);
+    }
+    public function postDegToggleVisibility(Request $request){
+        $degId = $request['id'];
+        $deg = Deg::where('id', $request['deId'])->first();
+        $deg->visible = !$deg->visible;
+        $deg->update();
+        return response()->json(200);
+    }
 
     /*
      * Following functions are used for adding new parameters for DEA/DEG

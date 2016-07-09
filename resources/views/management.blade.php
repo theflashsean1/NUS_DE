@@ -6,6 +6,13 @@
 
 
 @section('content')
+    <div class="row title-for-pub">
+        <div class="col-md-12">
+            <h1>Management</h1>
+            <p class="lead">Edit & Delete parameters and settings </p>
+            <p><i></i></p>
+        </div>
+    </div>
 
     <section>
         <h1>Dimension</h1>
@@ -162,6 +169,13 @@
                 </tbody>
             </table>
         </div>
+    </section>
+
+    <section>
+        <h1>Pictures</h1>
+        <ul class="hoverbox">
+
+        </ul>
     </section>
 
 

@@ -15,16 +15,21 @@
 @endif
 
 @section('add-de')
-    <form class="form-horizontal add-de-experiments" method="post" action="{{route('post.createExperiment')}}">
+    <form class="form-horizontal add-de-experiments" method="post" action="{{route('post.createExperiment')}}" enctype="multipart/form-data">
         <div class="form-group">
             <label class="col-md-1 control-label">Name</label>
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <input type="text" class="form-control" name="experiment_name" placeholder="name/id for experiment">
             </div>
+            <label class="col-md-1 control-label">Image</label>
+            <div class=" col-md-3">
+                <input type="file" name="image" class = "form-control" id="image">
+            </div>
             <label  class="col-md-1 control-label">Type</label>
-            <div class="col-md-5">
+            <div class="col-md-2">
                 <input type="text" class="form-control" name = "experiment_type" value="DEA" readonly>
             </div>
+
         </div>
         <div class="form-group">
             <label  class="col-md-1 control-label">Purpose</label>
@@ -100,6 +105,8 @@
 
         <div class="well well-sm" style="text-align: center; font-family: 'Al Bayan'; font-size: large;">
         </div>
+
+
 
         <div class="row">
             <div class="col-md-2 col-md-offset-5">
@@ -255,20 +262,35 @@
                     <h4 class="modal-title">Create New Equipment</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="#">
+                    <form action="#" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="post-body">Equipment Name</label>
                             <input type="text" class="form-control" name="equipment-name" id="equipment-name">
                         </div>
                         <div class="form-group">
+                            <label for="post-body">Category</label>
+                            <select name="type" id="equipment-type">
+                                <option value="EXPERIMENT_TOOL">Experiment tool</option>
+                                <option value="DEA_APPLICATION">DEA Application</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
                             <label for="post-body">Description</label>
                             <textarea class="form-control" name="equipment-description" id="equipment-description" rows="5"></textarea>
                         </div>
+
+                        <div class="form-group ">
+                            <label for="image">Image (only .jpg)</label>
+                            <input type="file" name="image" class = "form-control" id="equipment-image">
+                        </div>
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" id = "add-equipment-modal-save">Save changes</button>
+
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -327,20 +349,19 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Edit Experiment</h4>
+                    <h4 class="modal-title">DEA Experiment Photo/Edit</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="#">
-                        <div class="form-group">
-                            <label for="post-body">Edit Experiment</label>
-                            <textarea class="form-control" name="post-body" id="post-body" rows="5"></textarea>
+                    <div class="row">
+                        <div class="col-md-12" id="de-experiment-image-container">
+                            <img id="de-experiment-photo" src="" alt="" class="img-responsive" align="middle" style="margin: auto">
                         </div>
-                    </form>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-danger" style="color: #000000" href="#" id="Experiment-delete">Delete</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id = "Experiment-save">Save changes</button>
+           {{--         <button type="button" class="btn btn-primary" id = "Experiment-save">Save changes</button>--}}
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -354,6 +375,8 @@
         var delete_experiment_url = '{{route('post.deleteExperiment')}}';
 
         var search_dea_url = '{{route('post.searchDEA')}}'
+
+        var urlExperimentImage = '{{route('post.experimentImage')}}';
     </script>
 
 @endsection

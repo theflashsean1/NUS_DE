@@ -16,10 +16,11 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('email');
+            $table->string('phone_number');
             $table->string('first_name');
             $table->string('password');
             $table->enum('focus',['DEA', 'DEG', 'ALL', 'OTHER']);
-
+            $table->boolean('visible');
             $table->rememberToken();
         });
     }

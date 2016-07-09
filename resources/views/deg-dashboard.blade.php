@@ -19,10 +19,8 @@
 
 @section('add-de')
     <div class="list-group add-de">
-        <form action="{{route('post.createDEG')}}" method = 'post'>
-            <div class="list-group add-de">
-                <form action="{{route('post.createDEA')}}" method = 'post'>
-                    <div class="list-group-item">
+        <form action="{{route('post.createDEG')}}" method = 'post' enctype="multipart/form-data">
+            <div class="list-group-item">
                 <span class="row">
                     <span class="col-md-3 col-sm-3">
                         <h4 class="list-group-item-heading">Dimension</h4>
@@ -187,6 +185,16 @@
                     </span>
                 </span>
                     </div>
+                    <div class="row">
+                        <div class="form-group col-md-4 col-md-offset-4">
+                            <label for="image">Image (only .jpg)</label>
+                            <input type="file" name="image" class = "form-control" id="image">
+                        </div>
+                        <div class="form-group col-md-1 col-md-offset-1">
+                            <label for="visibility">Visibility (public)</label>
+                            <input type="checkbox" name="visibility"  id="visibility" value="true">
+                        </div>
+                    </div>
 
                     <div class="row">
                         <div class="col-md-2 col-md-offset-5">
@@ -194,8 +202,6 @@
                             <input type="hidden" value = "{{Session::token()}}" name="_token">
                         </div>
                     </div>
-                </form>
-            </div>
         </form>
     </div>
 @endsection
@@ -269,14 +275,21 @@
                     <h4 class="modal-title">Edit DEG</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="#">
-                        <div class="form-group">
-                            <label for="post-body">Edit DEG</label>
-                            <textarea class="form-control" name="post-body" id="post-body" rows="5"></textarea>
+
+                    <div class="row">
+                        <div class="col-md-12" id="de-image-container">
+
+                            <img id="de-photo" src="{{route('public.image', ['filename'=>'dea_theory1.jpg'])}}" alt="" class="img-responsive" align="middle" style="margin: auto">
+
                         </div>
-                    </form>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
+                    <div class="form-group" style="float: left">
+                        <label for="visibility">Visibility (public)</label>
+                        <input type="checkbox" name="visibility"  id="visibility-checkbox" value="true">
+                    </div>
                     <button class="btn btn-danger" style="color: #000000" href="#" id="DEG-delete">Delete</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" id = "DEG-save">Save changes</button>
@@ -292,6 +305,9 @@
         var urlConfiguration = '{{route('post.addConfiguration')}}';
         var urlMaterial = '{{route('post.addMaterial')}}';
         var urlDeleteDEG = '{{route('post.deleteDEG')}}';
+        var urlDegImage = '{{route('post.degImage')}}';
+        var urlDegVisibility = '{{route('post.degVisibility')}}';
+        var urlDegToggleVisibility ='{{route('post.degToggleVisibility')}}';
     </script>
 
 @endsection

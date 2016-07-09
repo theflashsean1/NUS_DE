@@ -21,6 +21,8 @@ class CreateExperimentsTable extends Migration
             $table->longText('procedure');
             $table->integer('dea_id')->unsigned()->nullable()->index();
             $table->foreign('dea_id')->references('id')->on('deas')->onDelete('set null');
+            $table->integer('deg_id')->unsigned()->nullable()->index();
+            $table->foreign('deg_id')->references('id')->on('degs')->onDelete('set null');
 
 
             $table->float('value1');
@@ -46,6 +48,8 @@ class CreateExperimentsTable extends Migration
         Schema::table('experiments',function ($table){
             $table->dropForeign(['dea_id']);
             $table->dropIndex(['dea_id']);
+            $table->dropForeign(['deg_id']);
+            $table->dropIndex(['deg_id']);
         });
         Schema::drop('experiments');
     }

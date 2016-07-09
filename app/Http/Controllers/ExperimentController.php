@@ -8,6 +8,9 @@ use App\Parameter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\Response;
 
 class ExperimentController extends Controller
 {
@@ -73,10 +76,31 @@ class ExperimentController extends Controller
         $experiment -> dea_deg_other = $request['experiment_type'];
         $experiment -> purpose = $request['experiment_purpose'];
         $experiment -> procedure = $request['experiment_procedure'];
-        if(isset($request['selected_dea_id'])&&$request['selected_dea_id']!=''){
-            $experiment ->dea_id = $request['selected_dea_id']; //TODO fix dea_id to de_id including database
-        }
         $experiment->save();
+
+        if ($experiment->dea_deg_other == "DEA"){
+            if(isset($request['selected_dea_id'])&&$request['selected_dea_id']!=''){
+                $experiment ->dea_id = $request['selected_dea_id'];
+            }
+            if (isset($request['image'])){
+                $file = $request->file('image');
+                $filename = 'dea_experiment_'. $experiment->id . '.jpg';
+                if ($file){
+                    Storage::disk('experiments')->put($filename, File::get($file));
+                }
+            }
+        }elseif ($experiment->dea_deg_other == "DEG"){
+            if(isset($request['selected_deg_id'])&&$request['selected_deg_id']!=''){
+                $experiment ->deg_id = $request['selected_deg_id'];
+            }
+            if (isset($request['image'])){
+                $file = $request->file('image');
+                $filename = 'deg_experiment_'. $experiment->id . '.jpg';
+                if ($file){
+                    Storage::disk('experiments')->put($filename, File::get($file));
+                }
+            }
+        }
 
         for ($i = 0; $i<5; $i++){
             $tempEquipmentID = 'equipment'.($i+1).'_id';
@@ -114,6 +138,16 @@ class ExperimentController extends Controller
         return response()->json(200);
     }
 
+    public function postExperimentImage(Request $request){
+        $file;
+        if (Storage::disk('experiments')->has($request['filename'])){
+            $file = Storage::disk('experiments')->get($request['filename']);
+            $file = base64_encode($file);
+        }else{
+            $file = null;
+        }
+        return new Response($file, 200);
+    }
 
     /*
      * DEA/DEG Experiment Common
@@ -123,12 +157,39 @@ class ExperimentController extends Controller
         $equipment = new Equipment();
         $equipment->name = $request['equipment_name'];
         $equipment->description = $request['equipment_description'];
+        $equipment->type = $request['equipment_type'];
+        $equipment->save();
+
+        if(isset($request['dea_application_image'])){
+          //  $file = $request->file('dea_application_image');
+            $file = $request['dea_application_image'];
+            $filename = 'dea_application_'. $equipment->id . '.jpg';
+            if ($file){
+                Storage::disk('dea_applications')->put($filename, File::get($file));
+            }
+            print_r('why not here2??');
+        }elseif (isset($request['deg_application_image'])){
+         //   $file = $request->file('deg_application_image');
+            $filename = 'deg_application_'. $equipment->id . '.jpg';
+            if ($file){
+                Storage::disk('dea_applications')->put($filename, File::get($file));
+            }
+
+        }elseif(isset($request['experiment_tool_image'])){
+          //  $file = $request->file('experiment_tool_image');
+            $filename = 'equipment_tool_'. $equipment->id . '.jpg';
+            if ($file){
+                Storage::disk('experiment_tools')->put($filename, File::get($file));
+            }
+        }
         $message = 'error';
         if($equipment -> save()){
             $message = 'Equipment successfully created';
         };
         return response() -> json(['new_equipment_name' => $equipment->name, 'new_equipment_id'=>$equipment->id],200);
     }
+    
+    
     public function postEditEquipment(Request $request){
         $equipment = Equipment::where('id', $request['id'])->first();
         $equipment->name = $request['name'];
@@ -143,6 +204,16 @@ class ExperimentController extends Controller
     }
 
 
+    public function postEquipmentImage(Request $request){
+        $file;
+        if (Storage::disk('equipment')->has($request['filename'])){
+            $file = Storage::disk('equipment')->get($request['filename']);
+            $file = base64_encode($file);
+        }else{
+            $file = null;
+        }
+        return new Response($file, 200);
+    }
     //Parameter
     public function postCreateParameter(Request $request){
         $parameter = new Parameter();

@@ -26,6 +26,8 @@ class CreateDeasTable extends Migration
 
             $table->float('prestretch');
             $table->integer('layer');
+
+            $table->boolean('visible');
         });
     }
 

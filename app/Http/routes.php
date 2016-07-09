@@ -134,6 +134,18 @@ Route::post('/deleteDEA',[
     'middleware' => 'auth'
 ]);
 
+Route::post('/deaImage',[
+    'uses' => 'DeController@postDeaImage',
+    'as' => 'post.deaImage'
+]);
+Route::post('/deaVisibility',[
+    'uses' => 'DeController@postDeaVisibility',
+    'as' => 'post.deaVisibility'
+]);
+Route::post('/deaToggleVisibility',[
+   'uses' => 'DeController@postDeaToggleVisibility',
+    'as' => 'post.deaToggleVisibility'
+]);
 /*
  *  DEG page
  */
@@ -159,7 +171,18 @@ Route::post('/deleteDEG',[
     'middleware' => 'auth'
 ]);
 
-
+Route::post('/degImage',[
+    'uses' => 'DeController@postDegImage',
+    'as' => 'post.degImage'
+]);
+Route::post('/degVisibility',[
+    'uses' => 'DeController@postDegVisibility',
+    'as' => 'post.degVisibility'
+]);
+Route::post('/degToggleVisibility',[
+    'uses' => 'DeController@postDegToggleVisibility',
+    'as' => 'post.degToggleVisibility'
+]);
 /*
  *  DE Common
  */
@@ -250,7 +273,10 @@ Route::post('/deleteExperiment',[
     'middleware' => 'auth'
 ]);
 
-
+Route::post('/experimentImage',[
+    'uses' => 'ExperimentController@postExperimentImage',
+    'as' => 'post.experimentImage'
+]);
 
 //Equipment
 Route::post('/createEquipment',[
@@ -267,6 +293,10 @@ Route::post('/deleteEquipment',[
     'uses' => 'ExperimentController@postDeleteEquipment',
     'as' => 'post.deleteEquipment',
     'middleware' => 'auth'
+]);
+Route::post('/equipmentImage',[
+    'uses' => 'ExperimentController@postEquipmentImage',
+    'as' => 'post.equipmentImage'
 ]);
 
 //Parameter

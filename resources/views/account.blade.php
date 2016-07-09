@@ -7,6 +7,14 @@
 
 
 @section('content')
+    <div class="row title-for-pub">
+        <div class="col-md-12">
+            <h1>Your Account</h1>
+            <p class="lead">Edit Your Account</p>
+            <p><i></i></p>
+        </div>
+    </div>
+
     <section class="row new-post">
         <div class="col-md-6 col-md-offset-3">
             <header><h3>Your Account</h3></header>

@@ -19,14 +19,18 @@
 
 
 @section('add-de')
-    <form class="form-horizontal add-de-experiments" method="post" action="{{route('post.createExperiment')}}">
+    <form class="form-horizontal add-de-experiments" method="post" action="{{route('post.createExperiment')}}" enctype="multipart/form-data">
         <div class="form-group">
             <label class="col-md-1 control-label">Name</label>
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <input type="text" class="form-control" name="experiment_name" placeholder="name/id for experiment">
             </div>
+            <label class="col-md-1 control-label">Image</label>
+            <div class=" col-md-3">
+                <input type="file" name="image" class = "form-control" id="image">
+            </div>
             <label  class="col-md-1 control-label">Type</label>
-            <div class="col-md-5">
+            <div class="col-md-2">
                 <input type="text" class="form-control" name = "experiment_type" value="DEG" readonly>
             </div>
         </div>
@@ -257,15 +261,28 @@
                     <h4 class="modal-title">Create New Equipment</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="#">
+                    <form action="#" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="post-body">Equipment Name</label>
                             <input type="text" class="form-control" name="equipment-name" id="equipment-name">
                         </div>
                         <div class="form-group">
+                            <label for="post-body">Category</label>
+                            <select name="type" id="equipment-type">
+                                <option value="EXPERIMENT_TOOL">Experiment tool</option>
+                                <option value="DEG_APPLICATION">DEG Application</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
                             <label for="post-body">Description</label>
                             <textarea class="form-control" name="equipment-description" id="equipment-description" rows="5"></textarea>
                         </div>
+                        <div class="form-group ">
+                            <label for="image">Image (only .jpg)</label>
+                            <input type="file" name="equipment-image" class = "form-control" id="equipment-image">
+                        </div>
+
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -324,6 +341,31 @@
     </div><!-- /.modal -->
 
 
+    <!-- Edit Experiment -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="edit-Experiment">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">DEG Experiment Photo/Edit</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12" id="de-experiment-image-container">
+                            <img id="de-experiment-photo" src="" alt="" class="img-responsive" align="middle" style="margin: auto">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" style="color: #000000" href="#" id="Experiment-delete">Delete</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    {{--         <button type="button" class="btn btn-primary" id = "Experiment-save">Save changes</button>--}}
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
     <script>
         var token = '{{Session::token()}}';
         var create_equipment_url = '{{route('post.createEquipment')}}';
@@ -331,5 +373,7 @@
         var delete_experiment_url = '{{route('post.deleteExperiment')}}';
 
         var search_dea_url = '{{route('post.searchDEG')}}'
+
+        var urlExperimentImage = '{{route('post.experimentImage')}}';
     </script>
 @endsection

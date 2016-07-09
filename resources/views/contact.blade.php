@@ -6,7 +6,6 @@ Contact Us
 
 
 @section('content')
-    @if(!Auth::user())
     <div class="row title-for-pub">
         <div class="col-md-12">
             <h1>Contact</h1>
@@ -14,7 +13,8 @@ Contact Us
 
         </div>
     </div>
-    <div class="content contact">
+    @if(!Auth::user())
+        <div class="content contact">
 
         <div class="info">
             <h4>Phone</h4>
