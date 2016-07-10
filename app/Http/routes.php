@@ -315,6 +315,10 @@ Route::post('/deleteEquipment',[
     'as' => 'post.deleteEquipment',
     'middleware' => 'auth'
 ]);
+Route::get('/getEquipmentImage/{filename}',[
+    'uses' => 'ExperimentController@getEquipmentImage',
+    'as' => 'get.equipmentimage'
+]);
 Route::post('/equipmentImage',[
     'uses' => 'ExperimentController@postEquipmentImage',
     'as' => 'post.equipmentImage'

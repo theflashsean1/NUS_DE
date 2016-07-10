@@ -96,17 +96,23 @@
                 <li hidden>
                     <h2>Applications</h2>
                     <p>Let's use this artificial muscle</p>
-                    <div class="row">
-                        <div class="col-md-4">
 
+                        @foreach($applications as $application)
+                        <div class="row">
+                        <div class="col-md-6">
+                            <p>Name: {{$application->name}}</p>
+                            <br>
+                            <p>Description: {{$application->description}}</p>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
+                            @if(Storage::disk('equipment')->has("dea_application_".$application->id.'.jpg'))
+                                <img src="{{route('get.equipmentImage', ['filename'=> "dea_".$application->id.'.jpg'])}}" alt="" class="img-responsive">
+                                </section>
+                            @endif
+                        </div>
+                        </div>
+                        @endforeach
 
-                        </div>
-                        <div class="col-md-4">
-
-                        </div>
-                    </div>
                 </li>
             </ul> <!-- .cd-projects-previews -->
         </div>
