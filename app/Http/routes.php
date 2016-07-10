@@ -52,6 +52,19 @@ Route::get('/userimage/{filename}',[
 /*
  * 'Semi-Static' Pages routes
  */
+Route::get('/dea/pub',[
+    'uses' => 'PublicController@getDeaContent',
+    'as' => 'dea-pub'
+]);
+Route::get('/deg/pub',[
+    'uses' => 'PublicController@getDegContent',
+    'as' => 'deg-pub'
+]);
+Route::get('/publicimage/{filename}',[
+    'uses' => 'PublicController@getPublicImage',
+    'as' => 'public.image'
+]);
+
 Route::get('/contact',[
     'uses'=>'PublicController@getContact',
     'as' => 'contact'
@@ -121,10 +134,30 @@ Route::post('/deleteDEA',[
     'middleware' => 'auth'
 ]);
 
+Route::post('/deaImage',[
+    'uses' => 'DeController@postDeaImage',
+    'as' => 'post.deaImage'
+]);
+Route::get('/getDeaImage/{filename}',[
+    'uses' => 'DeController@getDeaImage',
+    'as' => 'get.deaImage'
+]);
+Route::post('/deleteDeaImage',[
+    'uses' => 'DeController@postDeleteDeaImage',
+    'as' => 'post.deleteDeaImage'
+]);
+Route::post('/deaVisibility',[
+    'uses' => 'DeController@postDeaVisibility',
+    'as' => 'post.deaVisibility'
+]);
+Route::post('/deaToggleVisibility',[
+   'uses' => 'DeController@postDeaToggleVisibility',
+    'as' => 'post.deaToggleVisibility'
+]);
 /*
  *  DEG page
  */
-Route::get('/DEG/{dimension_id}/{configuration_id}/{material_id}/{prestretch}/{page_num}',[
+Route::get('/DEG/{dimension_id}/{configuration_id}/{material_id}/{prestretch}/{layer}/{page_num}',[
     'uses'=>'DeController@getDegDashboard',
     'as' => 'degDashboard',
     'middleware' => 'auth'
@@ -146,7 +179,26 @@ Route::post('/deleteDEG',[
     'middleware' => 'auth'
 ]);
 
-
+Route::post('/degImage',[
+    'uses' => 'DeController@postDegImage',
+    'as' => 'post.degImage'
+]);
+Route::get('/getDegImage/{filename}',[
+   'uses' => 'DeController@getDegImage',
+    'as' => 'get.degImage'
+]);
+Route::post('/deleteDegImage',[
+    'uses' => 'DeController@postDeleteDegImage',
+    'as' => 'post.deleteDegImage'
+]);
+Route::post('/degVisibility',[
+    'uses' => 'DeController@postDegVisibility',
+    'as' => 'post.degVisibility'
+]);
+Route::post('/degToggleVisibility',[
+    'uses' => 'DeController@postDegToggleVisibility',
+    'as' => 'post.degToggleVisibility'
+]);
 /*
  *  DE Common
  */
@@ -237,7 +289,15 @@ Route::post('/deleteExperiment',[
     'middleware' => 'auth'
 ]);
 
+Route::post('/experimentImage',[
+    'uses' => 'ExperimentController@postExperimentImage',
+    'as' => 'post.experimentImage'
+]);
 
+Route::post('/deleteExperimentImage',[
+    'uses' => 'ExperimentController@postDeleteExperimentImage',
+    'as' => 'post.deleteExperimentImage'
+]);
 
 //Equipment
 Route::post('/createEquipment',[
@@ -254,6 +314,27 @@ Route::post('/deleteEquipment',[
     'uses' => 'ExperimentController@postDeleteEquipment',
     'as' => 'post.deleteEquipment',
     'middleware' => 'auth'
+]);
+Route::get('/getEquipmentImage/{filename}',[
+    'uses' => 'ExperimentController@getEquipmentImage',
+    'as' => 'get.equipmentimage'
+]);
+Route::post('/equipmentImage',[
+    'uses' => 'ExperimentController@postEquipmentImage',
+    'as' => 'post.equipmentImage'
+]);
+Route::post('/deleteEquipmentImage',[
+    'uses' => 'ExperimentController@postDeleteEquipmentImage',
+    'as' => 'post.deleteEquipmentImage'
+]);
+
+Route::post('/equipmentToggleVisibility',[
+    'uses' => 'ExperimentController@postEquipmentToggleVisibility',
+    'as' => 'post.equipmentToggleVisibility'
+]);
+Route::post('/equipmentImageDelete',[
+   'uses' => 'ExperimentController@postEquipmentDeleteImage',
+    'as' => 'post.equipmentImageDelete'
 ]);
 
 //Parameter
@@ -279,4 +360,9 @@ Route::get('/management',[
     'uses' => 'ManagementController@getManagementDashboard',
     'as'=>'management',
     'middleware' => 'auth'
+]);
+
+Route::get('/equipmentImage/{filename}',[
+    'uses' => 'ExperimentController@getEquipmentImage',
+    'as' => 'get.equipmentImage'
 ]);

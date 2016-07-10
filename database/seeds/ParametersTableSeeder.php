@@ -11,6 +11,6 @@ class ParametersTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+
     }
 }

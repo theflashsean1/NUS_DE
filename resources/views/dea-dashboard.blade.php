@@ -1,6 +1,5 @@
 @extends('layouts.de-template')
 
-
 @section('type')DEA
 @endsection
 
@@ -19,23 +18,21 @@
 
 @section('add-de')
     <div class="list-group add-de">
-        <form action="{{route('post.createDEA')}}" method = 'post'>
-
-
-
+        <form action="{{route('post.createDEA')}}" method = 'post' enctype="multipart/form-data">
             <div class="list-group-item">
                 <span class="row">
-                    <span class="col-md-4">
+                    <span class="col-md-3 col-sm-3">
                         <h4 class="list-group-item-heading">Dimension</h4>
                          <p class="list-group-item-text">Selected Dimension ID</p>
-                        <input class="output" name="dimension" type="text" value="-1" style="width: 40px" >
+                        <input class="output" name="dimension" type="text" value="-1" style="width: 40px" readonly >
                     </span>
 
-                    <span class="col-md-7">
+                    <span class="col-md-8  col-sm-8">
                         <div class="horizontal">
                             <div class="table">
                                     <article>
-                                        <h3>No selection</h3>
+                                        <h3>ID: -1</h3>
+                                        <h2>No selection</h2>
                                         <input type="hidden" value="-1">
                                     </article>
 
@@ -50,7 +47,7 @@
                             </div>
                         </div>
                     </span>
-                    <span class="col-md-1">
+                    <span class="col-md-1 col-sm-1">
                         <a href="#" class="add-1">Define new dimension</a>
                     </span>
                 </span>
@@ -58,17 +55,18 @@
 
             <div class="list-group-item">
                 <span class="row">
-                    <span class="col-md-4">
+                    <span class="col-md-3">
                         <h4 class="list-group-item-heading">Configuration</h4>
                          <p class="list-group-item-text">Selected Configuration ID:</p>
                          <input class="output" name="configuration" type="text" value="-1" style="width: 40px">
                     </span>
-                    <span class="col-md-7">
+                    <span class="col-md-8">
 
                     <div class="horizontal">
                             <div class="table">
                                     <article>
-                                        <h3>No selection</h3>
+                                        <h3>ID: -1</h3>
+                                        <h2>No selection</h2>
                                         <input type="hidden" value="-1">
                                     </article>
 
@@ -91,17 +89,18 @@
             </div>
             <div  class="list-group-item">
                 <span class="row">
-                    <span class="col-md-4">
+                    <span class="col-md-3">
                         <h4 class="list-group-item-heading">Material</h4>
                          <p class="list-group-item-text">Selected Material ID</p>
                          <input class="output" name="material" type="text" value="-1" style="width: 40px">
                     </span>
-                    <span class="col-md-7">
+                    <span class="col-md-8">
 
                    <div class="horizontal">
                             <div class="table">
                                     <article>
-                                        <h3>No selection</h3>
+                                        <h3>ID: -1</h3>
+                                        <h2>No selection</h2>
                                         <input type="hidden" value="-1">
                                     </article>
                                 @foreach($materials as $material)
@@ -123,17 +122,18 @@
             </div>
             <div class="list-group-item">
                 <span class="row">
-                    <span class="col-md-4">
+                    <span class="col-md-3">
                         <h4 class="list-group-item-heading">Prestretch</h4>
                          <p class="list-group-item-text">Selected prestretch value:</p>
                          <input class="output" name="prestretch" type="text" value="-1" style="width: 40px">
                     </span>
-                    <span class="col-md-7">
+                    <span class="col-md-8">
 
                     <div class="horizontal">
                             <div class="table">
                                     <article>
-                                        <h3>No selection</h3>
+                                        <h3>ID: -1</h3>
+                                        <h2>No selection</h2>
                                         <input type="hidden" value="-1">
                                     </article>
                                 @foreach($prestretches as $prestretch)
@@ -154,17 +154,18 @@
             </div>
             <div class="list-group-item">
                 <span class="row">
-                    <span class="col-md-4">
+                    <span class="col-md-3">
                         <h4 class="list-group-item-heading">Layer</h4>
                          <p class="list-group-item-text">Selected layer value:</p>
                          <input class="output" name="layer" type="text" value="-1" style="width: 40px">
                     </span>
-                    <span class="col-md-7">
+                    <span class="col-md-8">
 
                     <div class="horizontal" id="final">
                             <div class="table">
                                     <article>
-                                        <h3>No selection</h3>
+                                        <h3>ID: -1</h3>
+                                        <h2>No selection</h2>
                                         <input type="hidden" value="-1">
                                     </article>
                                 @foreach($layers as $layer)
@@ -183,7 +184,16 @@
                     </span>
                 </span>
             </div>
-
+            <div class="row">
+                <div class="form-group col-md-4 col-md-offset-3">
+                    <label for="image">Image (only .jpg)</label>
+                    <input type="file" name="image" class = "form-control" id="image">
+                </div>
+                <div class="form-group col-md-1 col-md-offset-1">
+                    <label for="visibility">Visibility (public)</label>
+                    <input type="checkbox" name="visibility"  id="visibility" value="true">
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-2 col-md-offset-5">
                     <button type = 'submit' class="btn btn-primary">Create DEA</button>
@@ -207,8 +217,6 @@
         <div class="modal fade" tabindex="-1" role="dialog" id="add-{{$i+1}}">
             <div class="modal-dialog">
                 <div class="modal-content">
-
-
 
                     <?php
                         $form = " <div class='modal-header'>
@@ -262,20 +270,25 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Edit DEA</h4>
+                    <h4 class="modal-title">DEA Photo/Edit</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="#">
-                        <div class="form-group">
-                            <label for="post-body">Edit DEA</label>
-                            <textarea class="form-control" name="post-body" id="post-body" rows="5"></textarea>
+                    <div class="row">
+                        <div class="col-md-12" id="de-image-container">
+                            <img id="de-photo" src="{{route('public.image', ['filename'=>'dea_theory1.jpg'])}}" alt="" class="img-responsive" align="middle" style="margin: auto">
                         </div>
-                    </form>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-danger" style="color: #000000" href="#" id="DEA-delete">Delete</button>
+                    <div class="form-group" style="float: left">
+                        <label for="visibility">Visibility (public)</label>
+                        <input type="checkbox" name="visibility"  id="visibility-checkbox" value="true">
+                    </div>
+                    <button class="btn btn-primary" style="color: #000000" href="#" id="DEA-image-change">Change Img</button>
+                    <button class="btn btn-warning" style="color: #000000" href="#" id="DEA-image-delete">Delete Img</button>
+                    <button class="btn btn-danger" style="color: #000000" href="#" id="DEA-delete">Delete DEA</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id = "DEA-save">Save changes</button>
+             {{--       <button type="button" class="btn btn-primary" id = "DEA-save">Save changes</button> --}}
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -288,5 +301,9 @@
         var urlConfiguration = '{{route('post.addConfiguration')}}';
         var urlMaterial = '{{route('post.addMaterial')}}';
         var urlDeleteDEA = '{{route('post.deleteDEA')}}';
+        var urlDeaImage = '{{route('post.deaImage')}}';
+        var urlDeaVisibility = '{{route('post.deaVisibility')}}';
+        var urlDeaToggleVisibility ='{{route('post.deaToggleVisibility')}}';
+        var urlDeleteDeaImage = '{{route('post.deleteDeaImage')}}';
     </script>
 @endsection

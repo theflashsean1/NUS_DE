@@ -19,9 +19,9 @@
 
                     <li><a href="{{route('progress-pub')}}">Progress</a></li>
 
-                    <li><a href="#">DEA</a></li>
+                    <li><a href="{{route('dea-pub')}}">DEA</a></li>
 
-                    <li><a href="#">DEG</a></li>
+                    <li><a href="{{route('deg-pub')}}">DEG</a></li>
 
                     <li><a href="{{route('contact')}}">Contact</a></li>
 
@@ -41,7 +41,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Energy<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="{{route('degDashboard',['dimension_id'=>'-1','configuration_id'=>'-1','material_id'=>'-1','prestretch'=>'-1.0','page_number'=>'1'])}}">DEG</a></li>
+                                <li><a href="{{route('degDashboard',['dimension_id'=>'-1','configuration_id'=>'-1','material_id'=>'-1','prestretch'=>'-1.0','layer'=>'-1','page_number'=>'1'])}}">DEG</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a href="{{route('degExperiment', ['page_number'=>'1'])}}">Experiments</a></li>
                                 <li role="separator" class="divider"></li>
@@ -56,7 +56,15 @@
 
                 <ul class="nav navbar-nav navbar-right">
                     @if(Auth::user())
-                    <li><a href="{{route('account')}}">Account</a></li>
+
+                    <li><a href="{{route('account')}}">
+                            @if(Storage::disk('local')->has(Auth::user()->first_name.'-'.Auth::user()->id.'.jpg'))
+                                <img src="{{route('account.image', ['filename'=> Auth::user()->first_name.'-'.Auth::user()->id.'.jpg'])}}" style="width: 20px;height:20px; position: relative;  border-radius: 50%" alt="" class="img-responsive">
+                            @else
+                                <img src="{{route('account.image',['filename'=>'default.jpg'])}}" alt="" class="img-responsive" style="width: 20px;height:20px; position: relative;border-radius: 50%">
+                            @endif
+
+                        </a></li>
                     <li><a href="{{route('logout')}}">Logout</a></li>
                     @endif
                 </ul>

@@ -6,8 +6,15 @@ Contact Us
 
 
 @section('content')
+    <div class="row title-for-pub">
+        <div class="col-md-12">
+            <h1>Contact</h1>
+            <p class="lead">Any questions? Feel free to ask us!</p>
+
+        </div>
+    </div>
     @if(!Auth::user())
-    <div class="content contact">
+        <div class="content contact">
 
         <div class="info">
             <h4>Phone</h4>

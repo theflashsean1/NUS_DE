@@ -18,6 +18,7 @@ class CreatePostsTable extends Migration
             $table->text('body');
             $table->integer('user_id');
             $table->enum('type',array('dea','deg','public','internal'));
+            $table->enum('post_for',array('accomplishment','event','meeting'));
         });
     }
 

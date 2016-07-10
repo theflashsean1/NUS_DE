@@ -1,11 +1,19 @@
-@extends('welcome')
-
+@extends('layouts.master')
+{{-- layouts.master or welcome????--}}
 @section('title')
     DE Database
 @endsection
 
 
 @section('content')
+    <div class="row title-for-pub">
+        <div class="col-md-12">
+            <h1>@yield('type') Database</h1>
+            <p class="lead">Add / View Recent @yield('type')</p>
+
+        </div>
+    </div>
+
     <ul class="nav nav-tabs">
         <li role="presentation" class= @yield('page1')><a href="#">Add @yield('type')</a></li>
         <li role="presentation" class= @yield('page2')><a href="#">View @yield('type')</a></li>

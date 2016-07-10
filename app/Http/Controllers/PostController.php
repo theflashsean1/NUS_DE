@@ -28,11 +28,14 @@ class PostController extends Controller
         $this->validate($request, [
             'body' => 'required|max:1000'
         ]);
-
-
         $post = new Post();
         $post->body = $request['body'];
         $post->type = $request['post-type'];
+
+        if ($request['post_for']!="none"&&$request['post_for']!=""){
+            $post->post_for = $request['post_for'];
+        }
+
         $message = 'There was an error';
         if ($request->user()->posts()->save($post)){ //key line to store post in posts, which is also related to that user
             $message = 'post successfully created';

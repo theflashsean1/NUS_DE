@@ -10,7 +10,12 @@
         <div class="container">
             <h1>Dielectric Elastomer</h1>
             <p>A material that shapes the future of Robotics and Energy harvesting!</p>
-            <p><a class="btn btn-primary btn-lg" href="#" id="sign-up-button" role="button">Staff Sign Up</a></p>
+            @if(!Auth::user())
+                <p><a class="btn btn-primary btn-lg" href="#" id="sign-up-button" role="button">Staff Sign Up</a></p>
+            @else
+                <p><a class="btn btn-primary btn-lg" href="{{route(strtolower(Auth::user()->focus).'Experiment', ['page_number'=>'2'])}}" id="" role="button">{{Auth::user()->focus}} experiments</a></p>
+            @endif
+
         </div>
     </div>
 
