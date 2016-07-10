@@ -68,15 +68,28 @@
                     <h2>DEAs</h2>
                     <p>Showcase some of the DEA</p>
                     <div class="row">
-                        <div class="col-md-4">
+                        @foreach($deas as $dea)
 
+                        <div class="col-md-4">
+                            <p>Configuration: {{$dea->configuration->name}}</p>
+                            <br>
+                            <p>Dimension: {{$dea->dimension->name}}</p>
                         </div>
                         <div class="col-md-4">
-
+                            @if(Storage::disk('dea')->has("dea_".$dea->id.'.jpg'))
+                                        <img src="{{route('get.deaImage', ['filename'=> "dea_".$dea->id.'.jpg'])}}" alt="" class="img-responsive">
+                                </section>
+                            @endif
                         </div>
                         <div class="col-md-4">
-
+                            <p>Prestretch: {{$dea->prestretch}}</p>
+                            <br>
+                            <p>Layer: {{$dea->layer}}</p>
+                            <br>
+                            <p>Material: {{$dea->material->name}}</p>
                         </div>
+
+                        @endforeach
                     </div>
                 </li>
 

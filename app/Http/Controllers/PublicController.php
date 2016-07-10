@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Dea;
+use App\Deg;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,12 +17,14 @@ class PublicController extends Controller
         return view('contact',['users'=>$users]);
     }
     public function getDeaContent(){
-        return view('dea-pub');
+        $deas = Dea::where('visible', '1')->get();
+        return view('dea-pub',['deas'=>$deas]);
     }
 
 
     public function getDegContent(){
-        return view('deg-pub',[]);
+        $degs = Deg::where('visible','1')->get();
+        return view('deg-pub',['degs'=>$degs]);
     }
 
 

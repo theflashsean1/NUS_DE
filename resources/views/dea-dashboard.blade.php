@@ -273,20 +273,20 @@
                     <h4 class="modal-title">DEA Photo/Edit</h4>
                 </div>
                 <div class="modal-body">
-
                     <div class="row">
                         <div class="col-md-12" id="de-image-container">
                             <img id="de-photo" src="{{route('public.image', ['filename'=>'dea_theory1.jpg'])}}" alt="" class="img-responsive" align="middle" style="margin: auto">
                         </div>
                     </div>
-
                 </div>
                 <div class="modal-footer">
                     <div class="form-group" style="float: left">
                         <label for="visibility">Visibility (public)</label>
                         <input type="checkbox" name="visibility"  id="visibility-checkbox" value="true">
                     </div>
-                    <button class="btn btn-danger" style="color: #000000" href="#" id="DEA-delete">Delete</button>
+                    <button class="btn btn-primary" style="color: #000000" href="#" id="DEA-image-change">Change Img</button>
+                    <button class="btn btn-warning" style="color: #000000" href="#" id="DEA-image-delete">Delete Img</button>
+                    <button class="btn btn-danger" style="color: #000000" href="#" id="DEA-delete">Delete DEA</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
              {{--       <button type="button" class="btn btn-primary" id = "DEA-save">Save changes</button> --}}
                 </div>
@@ -304,5 +304,6 @@
         var urlDeaImage = '{{route('post.deaImage')}}';
         var urlDeaVisibility = '{{route('post.deaVisibility')}}';
         var urlDeaToggleVisibility ='{{route('post.deaToggleVisibility')}}';
+        var urlDeleteDeaImage = '{{route('post.deleteDeaImage')}}';
     </script>
 @endsection

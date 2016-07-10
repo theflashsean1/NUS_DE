@@ -153,8 +153,17 @@ class DeController extends Controller
     //logic to delete DEA
     public function postDeleteDea(Request $request){
         $dea = Dea::where('id', $request['deId'])->first();  //find($post_id) == where('id', $post_id)
+        $imageName = "dea_".$request['deId'].".jpg";
+        if (Storage::disk('dea')->has($imageName)){
+            Storage::disk('dea')->delete($imageName);
+        }
         $dea->delete();
         return response()->json(200);
+    }
+
+    public function getDeaImage($filename){
+        $file = Storage::disk('dea')->get($filename);
+        return new Response($file, 200);
     }
 
     public function postDeaImage(Request $request){
@@ -179,6 +188,13 @@ class DeController extends Controller
         $dea->visible = !$dea->visible;
         $dea->update();
         return response()->json(200);
+    }
+    public function postDeleteDeaImage(Request $request){
+        $filename = $request['filename'];
+        if (Storage::disk('dea')->has($filename)){
+            Storage::disk('dea')->delete($filename);
+        }
+        return new Response(200);
     }
 
     /*
@@ -322,14 +338,21 @@ class DeController extends Controller
     }
 
 
-    //logic to delete DEA
+    //logic to delete DEG
     public function postDeleteDeg(Request $request){
-        $dea = Deg::where('id', $request['deId'])->first();  //find($post_id) == where('id', $post_id)
-        $dea->delete();
+        $deg = Deg::where('id', $request['deId'])->first();  //find($post_id) == where('id', $post_id)
+        $imageName = "deg_".$request['deId'].".jpg";
+        if (Storage::disk('deg')->has($imageName)){
+            Storage::disk('deg')->delete($imageName);
+        }
+        $deg->delete();
         return response()->json(200);
     }
 
-
+    public function getDegImage($filename){
+        $file = Storage::disk('deg')->get($filename);
+        return new Response($file, 200);
+    }
     public function postDegImage(Request $request){
         $file;
         if (Storage::disk('deg')->has($request['filename'])){
@@ -352,7 +375,13 @@ class DeController extends Controller
         $deg->update();
         return response()->json(200);
     }
-
+    public function postDeleteDegImage(Request $request){
+        $filename = $request['filename'];
+        if (Storage::disk('deg')->has($filename)){
+            Storage::disk('deg')->delete($filename);
+        }
+        return new Response(200);
+    }
     /*
      * Following functions are used for adding new parameters for DEA/DEG
      */

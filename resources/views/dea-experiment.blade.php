@@ -288,6 +288,11 @@
                     </form>
                 </div>
                 <div class="modal-footer">
+                    <div class="form-group" style="float: left">
+                        <label for="visibility">Visibility(Public)</label>
+                        <input type="checkbox" name="visibility"  id="visibility-checkbox" value="true">
+                    </div>
+
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" id = "add-equipment-modal-save">Save changes</button>
 
@@ -359,6 +364,9 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <button class="btn btn-primary" style="color: #000000" href="#" id="DEA-Experiment-image-change">Change Img</button>
+                    <button class="btn btn-warning" style="color: #000000" href="#" id="DEA-Experiment-image-delete">Delete Img</button>
+
                     <button class="btn btn-danger" style="color: #000000" href="#" id="Experiment-delete">Delete</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
            {{--         <button type="button" class="btn btn-primary" id = "Experiment-save">Save changes</button>--}}
@@ -377,6 +385,7 @@
         var search_dea_url = '{{route('post.searchDEA')}}'
 
         var urlExperimentImage = '{{route('post.experimentImage')}}';
+        var urlDeleteExperimentImage = '{{route('post.deleteExperimentImage')}}';
     </script>
 
 @endsection

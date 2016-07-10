@@ -138,6 +138,14 @@ Route::post('/deaImage',[
     'uses' => 'DeController@postDeaImage',
     'as' => 'post.deaImage'
 ]);
+Route::get('/getDeaImage/{filename}',[
+    'uses' => 'DeController@getDeaImage',
+    'as' => 'get.deaImage'
+]);
+Route::post('/deleteDeaImage',[
+    'uses' => 'DeController@postDeleteDeaImage',
+    'as' => 'post.deleteDeaImage'
+]);
 Route::post('/deaVisibility',[
     'uses' => 'DeController@postDeaVisibility',
     'as' => 'post.deaVisibility'
@@ -174,6 +182,14 @@ Route::post('/deleteDEG',[
 Route::post('/degImage',[
     'uses' => 'DeController@postDegImage',
     'as' => 'post.degImage'
+]);
+Route::get('/getDegImage/{filename}',[
+   'uses' => 'DeController@getDegImage',
+    'as' => 'get.degImage'
+]);
+Route::post('/deleteDegImage',[
+    'uses' => 'DeController@postDeleteDegImage',
+    'as' => 'post.deleteDegImage'
 ]);
 Route::post('/degVisibility',[
     'uses' => 'DeController@postDegVisibility',
@@ -278,6 +294,11 @@ Route::post('/experimentImage',[
     'as' => 'post.experimentImage'
 ]);
 
+Route::post('/deleteExperimentImage',[
+    'uses' => 'ExperimentController@postDeleteExperimentImage',
+    'as' => 'post.deleteExperimentImage'
+]);
+
 //Equipment
 Route::post('/createEquipment',[
     'uses' => 'ExperimentController@postCreateEquipment',
@@ -297,6 +318,19 @@ Route::post('/deleteEquipment',[
 Route::post('/equipmentImage',[
     'uses' => 'ExperimentController@postEquipmentImage',
     'as' => 'post.equipmentImage'
+]);
+Route::post('/deleteEquipmentImage',[
+    'uses' => 'ExperimentController@postDeleteEquipmentImage',
+    'as' => 'post.deleteEquipmentImage'
+]);
+
+Route::post('/equipmentToggleVisibility',[
+    'uses' => 'ExperimentController@postEquipmentToggleVisibility',
+    'as' => 'post.equipmentToggleVisibility'
+]);
+Route::post('/equipmentImageDelete',[
+   'uses' => 'ExperimentController@postEquipmentDeleteImage',
+    'as' => 'post.equipmentImageDelete'
 ]);
 
 //Parameter
@@ -322,4 +356,9 @@ Route::get('/management',[
     'uses' => 'ManagementController@getManagementDashboard',
     'as'=>'management',
     'middleware' => 'auth'
+]);
+
+Route::get('/equipmentImage/{filename}',[
+    'uses' => 'ExperimentController@getEquipmentImage',
+    'as' => 'get.equipmentImage'
 ]);

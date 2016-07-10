@@ -134,6 +134,13 @@ class ExperimentController extends Controller
 
     public function postDeleteExperiment(Request $request){
         $experiment = Experiment::where('id', $request['experiment_id'])->first();
+        $imageName = "experiment_".$request['experiment_id'].".jpg";
+        if (Storage::disk('experiments')->has("dea_".$imageName)){
+            Storage::disk('experiments')->delete("dea_".$imageName);
+        }
+        if (Storage::disk('experiments')->has("deg_".$imageName)){
+            Storage::disk('experiments')->delete("deg_".$imageName);
+        }
         $experiment->delete();
         return response()->json(200);
     }
@@ -148,6 +155,14 @@ class ExperimentController extends Controller
         }
         return new Response($file, 200);
     }
+    public function postDeleteExperimentImage(Request $request){
+        $filename = $request['filename'];
+        //print_r($filename);
+        if (Storage::disk('experiments')->has($filename)){
+            Storage::disk('experiments')->delete($filename);
+        }
+        return new Response(200);
+    }
 
     /*
      * DEA/DEG Experiment Common
@@ -158,34 +173,26 @@ class ExperimentController extends Controller
         $equipment->name = $request['equipment_name'];
         $equipment->description = $request['equipment_description'];
         $equipment->type = $request['equipment_type'];
-        $equipment->save();
+        if ($request['visibility']=='true') {
+            $equipment->visible = true;
+        }else{
+            $equipment->visible = false;
+        }
 
-        if(isset($request['dea_application_image'])){
-          //  $file = $request->file('dea_application_image');
-            $file = $request['dea_application_image'];
-            $filename = 'dea_application_'. $equipment->id . '.jpg';
-            if ($file){
-                Storage::disk('dea_applications')->put($filename, File::get($file));
-            }
-            print_r('why not here2??');
-        }elseif (isset($request['deg_application_image'])){
-         //   $file = $request->file('deg_application_image');
-            $filename = 'deg_application_'. $equipment->id . '.jpg';
-            if ($file){
-                Storage::disk('dea_applications')->put($filename, File::get($file));
-            }
+        $equipment -> save();
 
-        }elseif(isset($request['experiment_tool_image'])){
-          //  $file = $request->file('experiment_tool_image');
-            $filename = 'equipment_tool_'. $equipment->id . '.jpg';
+        if (isset($request['image'])){
+            $file = $request['image'];
+            $filename = 'equipment_'. $equipment->id . '.jpg';
             if ($file){
-                Storage::disk('experiment_tools')->put($filename, File::get($file));
+                Storage::disk('equipment')->put($filename, File::get($file));
             }
         }
         $message = 'error';
         if($equipment -> save()){
             $message = 'Equipment successfully created';
         };
+
         return response() -> json(['new_equipment_name' => $equipment->name, 'new_equipment_id'=>$equipment->id],200);
     }
     
@@ -199,11 +206,35 @@ class ExperimentController extends Controller
     }
     public function postDeleteEquipment(Request $request){
         $equipment = Equipment::where('id', $request['id'])->first();
+        $imageName = "equipment_".$request['id'].".jpg";
+        if (Storage::disk('equipment')->has($imageName)){
+            Storage::disk('equipment')->delete($imageName);
+        }
         $equipment->delete();
         return response()->json(200);
     }
 
+    public function getEquipmentImage($filename){
+        $file = Storage::disk('equipment')->get($filename);
+        return new Response($file, 200);
+    }
+    public function postEquipmentDeleteImage(Request $request){
+        $filename = $request['filename'];
+        if (Storage::disk('equipment')->has($filename)){
+            Storage::disk('equipment')->delete($filename);
+        }
+        return new Response(200);
+    }
+    public function postEquipmentToggleVisibility(Request $request){
+        $equipment = Equipment::where('id', $request['equipmentId'])->first();
+        $equipment->visible = !$equipment->visible;
+        $equipment->update();
 
+        return response()->json(['visible'=>$equipment->visible],200);
+    }
+
+    /*
+    /*
     public function postEquipmentImage(Request $request){
         $file;
         if (Storage::disk('equipment')->has($request['filename'])){
@@ -213,14 +244,14 @@ class ExperimentController extends Controller
             $file = null;
         }
         return new Response($file, 200);
-    }
+    }*/
     //Parameter
     public function postCreateParameter(Request $request){
         $parameter = new Parameter();
         $parameter->name = $request['parameter_name'];
         $parameter->unit = $request['parameter_unit'];
         $parameter->description = $request['parameter_description'];
-        $parameter->update();
+        //$parameter->update();
         $parameter->save();
         return response() -> json(['new_parameter_name'=>$parameter->name, 'new_parameter_unit'=>$parameter->unit, 'new_parameter_id'=>$parameter->id],200);
     }
@@ -229,7 +260,7 @@ class ExperimentController extends Controller
         $parameter->name = $request['name'];
         $parameter->description = $request['description'];
         $parameter->unit = $request['unit'];
-
+        $parameter->update();
         return response()->json(['new_name' => $parameter->name, 'new_description'=>$parameter->description, 'new_unit'=>$parameter->unit],200);
     }
     public function postDeleteParameter(Request $request){

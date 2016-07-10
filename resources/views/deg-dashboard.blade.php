@@ -290,9 +290,11 @@
                         <label for="visibility">Visibility (public)</label>
                         <input type="checkbox" name="visibility"  id="visibility-checkbox" value="true">
                     </div>
+                    <button class="btn btn-primary" style="color: #000000" href="#" id="DEG-image-change">Change Img</button>
+                    <button class="btn btn-warning" style="color: #000000" href="#" id="DEG-image-delete">Delete Img</button>
                     <button class="btn btn-danger" style="color: #000000" href="#" id="DEG-delete">Delete</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id = "DEG-save">Save changes</button>
+
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -308,6 +310,7 @@
         var urlDegImage = '{{route('post.degImage')}}';
         var urlDegVisibility = '{{route('post.degVisibility')}}';
         var urlDegToggleVisibility ='{{route('post.degToggleVisibility')}}';
+        var urlDeleteDegImage = '{{route('post.deleteDegImage')}}';
     </script>
 
 @endsection
