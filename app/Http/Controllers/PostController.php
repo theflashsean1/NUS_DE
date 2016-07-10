@@ -32,7 +32,11 @@ class PostController extends Controller
         $post->body = $request['body'];
         $post->type = $request['post-type'];
 
-        if ($request['post_for']!="none"&&$request['post_for']!=""){
+        //
+
+        //
+
+        if ($request['post_for']!=""){
             $post->post_for = $request['post_for'];
         }
 

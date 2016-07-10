@@ -71,9 +71,13 @@
                         @foreach($deas as $dea)
 
                         <div class="col-md-4">
+                        @if(isset($dea->configuration))
                             <p>Configuration: {{$dea->configuration->name}}</p>
+                        @endif
                             <br>
+                        @if(isset($dea->dimension))
                             <p>Dimension: {{$dea->dimension->name}}</p>
+                        @endif
                         </div>
                         <div class="col-md-4">
                             @if(Storage::disk('dea')->has("dea_".$dea->id.'.jpg'))
@@ -82,11 +86,14 @@
                             @endif
                         </div>
                         <div class="col-md-4">
+
                             <p>Prestretch: {{$dea->prestretch}}</p>
                             <br>
                             <p>Layer: {{$dea->layer}}</p>
                             <br>
+                            @if(isset($dea->material))
                             <p>Material: {{$dea->material->name}}</p>
+                            @endif
                         </div>
 
                         @endforeach
