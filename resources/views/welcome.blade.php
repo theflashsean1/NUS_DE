@@ -13,7 +13,11 @@
             @if(!Auth::user())
                 <p><a class="btn btn-primary btn-lg" href="#" id="sign-up-button" role="button">Staff Sign Up</a></p>
             @else
-                <p><a class="btn btn-primary btn-lg" href="{{route(strtolower(Auth::user()->focus).'Experiment', ['page_number'=>'2'])}}" id="" role="button">{{Auth::user()->focus}} experiments</a></p>
+                @if(Auth::user()->focus == "ALL"||Auth::user()->focus == "OTHER")
+                    <p><a class="btn btn-primary btn-lg" href="{{route('management')}}" id="" role="button">Edit Progress</a> </p>
+                @else
+                    <p><a class="btn btn-primary btn-lg" href="{{route(strtolower(Auth::user()->focus).'Experiment', ['page_number'=>'2'])}}" id="" role="button">{{Auth::user()->focus}} experiments</a></p>
+                @endif
             @endif
 
         </div>
