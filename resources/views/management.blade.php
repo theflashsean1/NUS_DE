@@ -286,7 +286,7 @@
                         @if($i==3)
                             <div class="form-group" style="float: left">
                                 <label for="visibility">Visibility</label>
-                                <input type="checkbox" name="visibility"  id="management-visibility-checkbox" value="true">
+                                <input type="checkbox" name="visibility"  id="management-visibility-checkbox">
                             </div>
                             <button class="btn btn-primary" style="color: #000000" href="#" id="Equipment-image-change">Change Img</button>
                             <button class="btn btn-warning" style="color: #000000" href="#" id="Equipment-image-delete">Delete Img</button>

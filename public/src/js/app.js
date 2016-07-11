@@ -164,7 +164,7 @@ $(document).on('click','div.view-DEA div.rr-right, div.view-DEG div.rr-right',fu
             url:urlForGetDeaDegVisibility,
             data: {id: deId, _token: token}
         }).done(function (msg) {
-            $('#visibility-checkbox').prop('checked',msg['isVisible']);
+            $('#visibility-checkbox').prop('checked',msg['isVisible']=='1');
             $('#edit-'+ dea_deg).modal();
         })
     });
@@ -202,7 +202,7 @@ $(document).on('click','div.view-DEA  div.rr-left, div.view-DEG div.rr-left',fun
             url:urlForGetDeaDegVisibility,
             data: {id: deId, _token: token}
         }).done(function (msg) {
-            $('#visibility-checkbox').prop('checked',msg['isVisible']);
+            $('#visibility-checkbox').prop('checked',msg['isVisible']=='1');
             $('#edit-'+ dea_deg).modal();
         })
     });

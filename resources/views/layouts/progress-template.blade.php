@@ -20,7 +20,7 @@
 
                 <header ><h3 style="display: inline; float: left">what do you want to share?</h3>
                 <select name="post_for" class="btn-primary" id="" style="display: inline; float: right; margin-top: 25px">
-                    <option value="none" selected>Normal Post</option>
+                    <option value="Normal" selected>Normal Post</option>
                     <option value="ACCOMPLISHMENT">Accomplishment</option>
                     @yield('right_post_option');
                 </select>
